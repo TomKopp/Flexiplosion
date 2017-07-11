@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Rectangle3 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Width>2141.8191894256643</Width>
+  <Height>1190.6508206968765</Height>
+  <Translate>
+    <X>69.43481</X>
+    <Y>-41.0494576</Y>
+    <Z>1410</Z>
+  </Translate>
+  <Rotate>
+    <X>0.04916416</X>
+    <Y>-0.02906557</Y>
+    <Z>0.9983677</Z>
+  </Rotate>
+</Rectangle3>
