@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LayeredTextureRepository xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <TextureResources>
+    <LayeredTextureResource Name="Magdeburg: Domfelsen 2008 - 2015" Folder="Resources/MD_Domfelsen" ShowLegend="false">
+      <Formats>       
+        <string>1080p</string>
+      </Formats>
+      <Textures>
+        <string>domfelsen_2015.jpg</string>
+        <string>domfelsen_2015.jpg</string>
+        <string>domfelsen_2015.jpg</string>
+        <string>domfelsen_2015.jpg</string>
+        <string>domfelsen_2008.jpg</string>
+        <string>domfelsen_2008.jpg</string>
+        <string>domfelsen_2008.jpg</string>
+      </Textures>
+    </LayeredTextureResource>
+    <LayeredTextureResource Name="Magdeburg: Elbbahnhof 2001 - 2015" Folder="Resources/MD_Elbbahnhof" ShowLegend="false">
+      <Formats>
+        <string>1080p</string>
+      </Formats>
+      <Textures>
+        <string>elbbahnhof_2015.jpg</string>
+        <string>elbbahnhof_2015.jpg</string>
+        <string>elbbahnhof_2015.jpg</string>
+        <string>elbbahnhof_2015.jpg</string>
+        <string>elbbahnhof_2001.jpg</string>
+        <string>elbbahnhof_2001.jpg</string>
+        <string>elbbahnhof_2001.jpg</string>
+      </Textures>
+    </LayeredTextureResource>
+    <LayeredTextureResource Name="Magdeburg: Elbuferpromenade 2008 - 2014" Folder="Resources/MD_Elbuferpromenade" ShowLegend="false">
+      <Formats>        
+        <string>1080p</string>
+      </Formats>   
+      <Textures>
+        <string>elbuferpromenade_2014.jpg</string>
+        <string>elbuferpromenade_2014.jpg</string>
+        <string>elbuferpromenade_2014.jpg</string>
+        <string>elbuferpromenade_2014.jpg</string>
+        <string>elbuferpromenade_2008.jpg</string>
+        <string>elbuferpromenade_2008.jpg</string>
+        <string>elbuferpromenade_2008.jpg</string>
+      </Textures>
+    </LayeredTextureResource>
+    <LayeredTextureResource Name="Magdeburg: Handelshafen 2004 - 2010" Folder="Resources/MD_Handelshafen" ShowLegend="false">
+      <Formats>      
+        <string>1080p</string>
+      </Formats>
+      <Textures>
+        <string>handelshafen_2014.jpg</string>
+        <string>handelshafen_2014.jpg</string>
+        <string>handelshafen_2014.jpg</string>
+        <string>handelshafen_2014.jpg</string>
+        <string>handelshafen_2004.jpg</string>
+        <string>handelshafen_2004.jpg</string>
+        <string>handelshafen_2004.jpg</string>
+      </Textures>
+    </LayeredTextureResource>
+    <LayeredTextureResource Name="Magdeburg: Leerstand Altstadt 2008 - 2015" Folder="Resources/MD_Leerstand" ShowLegend="false">
+      <Formats>      
+        <string>1080p</string>
+      </Formats>
+      <Textures>
+        <string>leerstand_2015.jpg</string>
+        <string>leerstand_2015.jpg</string>
+        <string>leerstand_2015.jpg</string>
+        <string>leerstand_2015.jpg</string>
+        <string>leerstand_2008.jpg</string>
+        <string>leerstand_2008.jpg</string>
+        <string>leerstand_2008.jpg</string>
+      </Textures>
+    </LayeredTextureResource>
+    <LayeredTextureResource Name="Magdeburg: Karten Olvenstedt 2008 - 2015" Folder="Resources/MD_Olvenstedt" ShowLegend="false">
+      <Formats>      
+        <string>1080p</string>
+      </Formats>
+      <Textures>        
+        <string>olvenstedt_2015.jpg</string>
+        <string>olvenstedt_2015.jpg</string>
+        <string>olvenstedt_2015.jpg</string>
+        <string>olvenstedt_2015.jpg</string>
+        <string>olvenstedt_2000.jpg</string>
+        <string>olvenstedt_2000.jpg</string>
+        <string>olvenstedt_2000.jpg</string>
+      </Textures>
+    </LayeredTextureResource>
+    <LayeredTextureResource Name="Magdeburg: Leerstand Olvenstedt 2008 - 2015" Folder="Resources/MD_Olvenstedt" ShowLegend="false">
+      <Formats>
+        <string>1080p</string>
+      </Formats>
+      <Textures>
+        <string>olvenstedt_2015_karte.jpg</string>
+        <string>olvenstedt_2015_karte.jpg</string>
+        <string>olvenstedt_2015_karte.jpg</string>
+        <string>olvenstedt_2015_karte.jpg</string>
+        <string>olvenstedt_2008_karte.jpg</string>
+        <string>olvenstedt_2008_karte.jpg</string>
+        <string>olvenstedt_2008_karte.jpg</string>
+      </Textures>
+    </LayeredTextureResource>
+  </TextureResources>
+</LayeredTextureRepository>

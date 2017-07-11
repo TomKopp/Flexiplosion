@@ -1,0 +1,56 @@
+﻿<Window x:Class="FlexiWallUI.Views.OpenGLView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:local="clr-namespace:FlexiWallUI.Views"
+        xmlns:sharpGL="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF"
+        xmlns:conv="clr-namespace:FlexiWallUI.Converter"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        mc:Ignorable="d"
+        Title="OpenGLView" Height="600" Width="800">
+    <Window.Resources>
+        <conv:TransformPropertyConverter x:Key="transformConv"/>
+    </Window.Resources>
+
+    <Grid MinWidth="800">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <!-- canvas -->
+        <Grid Grid.Column="0" Grid.Row="0">
+            <sharpGL:OpenGLControl OpenGLDraw="OpenGLDraw" DrawFPS="True"/>
+        </Grid>
+
+        <!-- control-panel -->
+        <StackPanel Grid.Column="1" Grid.Row="0">
+
+            <!-- translate -->
+            <TextBlock Text="translate"/>
+            <Slider Minimum="-50" Maximum="50" Value="{Binding Translate, Converter={StaticResource transformConv}, ConverterParameter=X}"/>
+            <Slider Minimum="-50" Maximum="50" Value="{Binding Translate, Converter={StaticResource transformConv}, ConverterParameter=Y}"/>
+            <Slider Minimum="-50" Maximum="50" Value="{Binding Translate, Converter={StaticResource transformConv}, ConverterParameter=Z}"/>
+
+            <!-- rotate -->
+            <TextBlock Text="rotate"/>
+            <Slider Minimum="-50" Maximum="50" Value="{Binding Rotate, Converter={StaticResource transformConv}, ConverterParameter=X}"/>
+            <Slider Minimum="-50" Maximum="50" Value="{Binding Rotate, Converter={StaticResource transformConv}, ConverterParameter=Y}"/>
+            <Slider Minimum="-50" Maximum="50" Value="{Binding Rotate, Converter={StaticResource transformConv}, ConverterParameter=Z}"/>
+
+            <!-- scale -->
+            <TextBlock Text="scale"/>
+            <Slider Minimum="-50" Maximum="50" Value="{Binding Scale, Converter={StaticResource transformConv}, ConverterParameter=X}"/>
+            <Slider Minimum="-50" Maximum="50" Value="{Binding Scale, Converter={StaticResource transformConv}, ConverterParameter=Y}"/>
+            <Slider Minimum="-50" Maximum="50" Value="{Binding Scale, Converter={StaticResource transformConv}, ConverterParameter=Z}"/>
+
+        </StackPanel>
+
+    </Grid>
+
+</Window>

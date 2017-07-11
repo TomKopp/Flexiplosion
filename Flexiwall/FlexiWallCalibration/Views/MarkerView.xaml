@@ -1,0 +1,32 @@
+﻿<Window x:Class="FlexiWallCalibration.Views.MarkerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:local="clr-namespace:FlexiWallCalibration.Views"
+        mc:Ignorable="d"
+        Title="MarkerWindow" WindowState="{Binding CurrentWindowState}" WindowStyle="None">
+
+    <!-- Key-Bindung um Fenster zu maximieren oder zu minimieren -->
+    <Window.InputBindings>
+        <KeyBinding Key="F12" Command="{Binding SwitchWindowStateCommand}"/>
+        <KeyBinding Key="Tab" Command="{Binding MirrorMarkerCommand}"/>
+        <KeyBinding Key="Esc" Command="Close"/>
+    </Window.InputBindings>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" Executed="CommandBinding_Executed"/>
+    </Window.CommandBindings>
+
+    <Grid>
+        <!-- AR-Marker zur Positionsbestimmung -->
+        <Image Source="pack://application:,,,/Media/model_rl.png" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <ScaleTransform ScaleX="{Binding Mirror}"/>
+            </Image.RenderTransform>
+        </Image>
+    </Grid>
+
+</Window>

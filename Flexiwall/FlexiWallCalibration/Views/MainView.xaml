@@ -1,0 +1,115 @@
+﻿<Window x:Class="FlexiWallCalibration.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBinding"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:local="clr-namespace:FlexiWallCalibration.Views"
+        mc:Ignorable="d"
+        Title="Realsense - Calibration" MinWidth="800" MinHeight="600" 
+        WindowStyle="SingleBorderWindow"  
+        WindowState="{Binding CurrentWindowState}">
+
+    <!-- Key-Bindung um Fenster zu maximieren oder zu minimieren -->
+    <Window.InputBindings>
+        <KeyBinding Key="F12" Command="{Binding SwitchWindowStateCommand}"/>
+        <KeyBinding Key="Esc" Command="{Binding CloseAppCommand}"/>
+    </Window.InputBindings>
+
+    <!-- Trennung des Kamerastreams und dem Controlpanel -->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Kamerabild (Farbstream) -->
+
+        <Image Source="{Binding ColorStream}" Grid.Column="0"/>
+        <Image Source="pack://application:,,,/Media/grid.png" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+
+        <!-- zeigt an ob momentan gemessen wird -->
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Opacity="{Binding IsMeasuring}">Please wait a moment.</TextBlock>
+
+        <!-- Beinhaltet Bedienelemente und Ausgabefelder -->
+        <StackPanel Grid.Column="1">
+
+            <StackPanel IsEnabled="{calc:Binding !IsMeasuring}">
+
+                <TextBlock>Controlpanel</TextBlock>
+                <!-- Öffnet ein neues Marker-Fenster -->
+                <Button Content="open marker-window" Command="{Binding OpenMarkerWindowCommand}"/>
+                <!-- Starten der Messung -->
+                <Button Content="start to measure" Command="{Binding StartToMeasureCommand}"/>
+
+            </StackPanel>
+
+            <StackPanel>
+
+                <!-- Ergebnis speichern -->
+                <Button Content="save" Command="{Binding SaveResultCommand}" IsEnabled="{Binding IsResult}"/>
+                <!-- Abrrechen der Messung -->
+                <Button Content="cancel" Command="{Binding CancelMeasuringCommand}" IsEnabled="{Binding IsMeasuring}"/>
+                <!-- Beenden der Anwendung -->
+                <Button Content="close" Command="{Binding CloseAppCommand}"/>
+
+            </StackPanel>
+
+            <StackPanel DataContext="{Binding Result}">
+
+                <!-- Ergebnis der Messung -->
+                <TextBlock>Result</TextBlock>
+                <!-- Höhe -->
+                <TextBlock>Height in mm</TextBlock>
+                <TextBlock Text="{Binding Height}"/>
+                <!-- Breite -->
+                <TextBlock>Width in mm</TextBlock>
+                <TextBlock Text="{Binding Width}"/>
+                <!-- Translation -->
+                <TextBlock>Translate</TextBlock>
+                <TextBlock Text="{Binding Translate}"/>
+                <!-- Rotation -->
+                <TextBlock>Rotate</TextBlock>
+                <TextBlock Text="{Binding Rotate}"/>
+
+            </StackPanel>
+
+            <!-- Fehler wird ausgegeben falls MArker nicht gefunden wurde -->
+            <TextBlock Text="An Error occurs during the search-process!" Opacity="{Binding IsError}"/>
+
+        </StackPanel>
+
+    </Grid>
+
+    <Window.Resources>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Margin" Value="0, 5"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+
+        <Style TargetType="Slider">
+            <Setter Property="Width" Value="190"/>
+            <Setter Property="Padding" Value="5, 0"/>
+        </Style>
+
+        <Style TargetType="Image">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        </Style>
+
+        <Style TargetType="StackPanel">
+            <Setter Property="Margin" Value="0, 5"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="25"/>
+        </Style>
+
+    </Window.Resources>
+
+</Window>
