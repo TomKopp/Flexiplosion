@@ -90,5 +90,15 @@ namespace FlexiWallUI.Views
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
         }
+
+        private void FlexiWallMainWindow_MouseMove(object sender, MouseEventArgs e)
+        {
+            _dataContext.Emulator.Position = e.GetPosition(sender as IInputElement);
+        }
+
+        private void FlexiWallMainWindow_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            _dataContext.Emulator.Delta = e.Delta;
+        }
     }
 }

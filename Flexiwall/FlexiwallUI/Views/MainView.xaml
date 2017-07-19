@@ -18,7 +18,9 @@
 		ResizeMode="CanResizeWithGrip"
 		BorderThickness="1" BorderBrush="{DynamicResource SpecialColorBrush}" 
         x:Name="FlexiWallMainWindow"
-		d:DataContext="{d:DesignData viewModels:MainViewModel}">
+		d:DataContext="{d:DesignData viewModels:MainViewModel}"
+        MouseMove="FlexiWallMainWindow_MouseMove"
+        MouseWheel="FlexiWallMainWindow_MouseWheel">
 
     <Window.InputBindings>
         <KeyBinding Command="{Binding AppCmd}" CommandParameter="Help" Gesture="F1"/>

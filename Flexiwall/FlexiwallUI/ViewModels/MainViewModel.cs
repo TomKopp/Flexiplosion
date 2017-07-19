@@ -35,7 +35,7 @@ namespace FlexiWallUI.ViewModels
         private int _textureIdx;
 
         private IFlexiWallAction _action;
-        private bool _useEumlatorImg = true;
+        private bool _useEmulator = true;
         private float _maxEmuDiameter;
         private MenuViewModel _menuVm;
         private BubbleViewModel _bubbleVm;
@@ -67,19 +67,29 @@ namespace FlexiWallUI.ViewModels
 
         public ObservableCollection<TextureResourceViewModel> TextureRepository { get; private set; }
 
-        public bool UseEmulatorImage
+        public CameraEmulator Emulator
         {
-            get { return _useEumlatorImg; }
+            get { return SensorVm.Emulator; }
+        }
+
+        public bool UseEmulator
+        {
+            get { return _useEmulator; }
             set
             {
-                SetProperty(ref _useEumlatorImg, value);
+                SetProperty(ref _useEmulator, value);
                 RaisePropertyChanged(nameof(IsEmulatorActive));
+
+                if (value == true)
+                    SensorVm.UseEmulator = true;
+                else
+                    SensorVm.UseEmulator = false;
             }
         }
 
         public bool IsEmulatorActive
         {
-            get { return UseEmulatorImage || SensorVm == null || !SensorVm.SensorConnected; }
+            get { return UseEmulator || SensorVm == null || !SensorVm.SensorConnected; }
         }
 
         public int SelectedTextureIndex
@@ -455,7 +465,7 @@ namespace FlexiWallUI.ViewModels
 
             var posX = 1920.0 - ((1.0f - e.DisplayCoordinates.X) * CameraLeftOffset);
             var posY = 1080.0 - ((1.0f - e.DisplayCoordinates.Y) * CameraTopOffset);
-            
+
             // realer Druckpunkt
             ZoomCenterPoint = new Point(e.DisplayCoordinates.X * posX,
                 e.DisplayCoordinates.Y * posY);
@@ -465,7 +475,8 @@ namespace FlexiWallUI.ViewModels
             var offsetY = ZoomCenterPoint.Y + LenseTopOffset - (ZoomCenterPoint.Y);
             OffsetPoint = new Point(offsetX, offsetY);
 
-            LenseRect = new Rect(new Point(ZoomCenterPoint.X, ZoomCenterPoint.Y), new Size(LenseSize / Zoom, LenseSize / Zoom));
+            if (LenseSize > 0 && Zoom > 0)
+                LenseRect = new Rect(new Point(ZoomCenterPoint.X, ZoomCenterPoint.Y), new Size(LenseSize / Zoom, LenseSize / Zoom));
 
             if (InteractionDepth < 0.3f)
                 ImgSource = XRAY;
@@ -781,7 +792,7 @@ namespace FlexiWallUI.ViewModels
 
         private void SaveSettings()
         {
-            Settings.Default.UseEmulator = UseEmulatorImage;
+            Settings.Default.UseEmulator = UseEmulator;
             Settings.Default.ShowDepth = ShowDepth;
             Settings.Default.MaxDepth = MaxDepth;
             Settings.Default.MinDepth = MinDepth;
@@ -812,7 +823,7 @@ namespace FlexiWallUI.ViewModels
             InterpolateDepthLayers = Settings.Default.InterpolateDepthLayers;
             ShowDepth = Settings.Default.ShowDepth;
             MaxEmulatorDiameter = Settings.Default.MaxEmulatorDiameter;
-            UseEmulatorImage = Settings.Default.UseEmulator;
+            UseEmulator = Settings.Default.UseEmulator;
 
             InteractionDepth = Settings.Default.InteractionDepth;
             SelectEllipse = Settings.Default.SelectEllipse;

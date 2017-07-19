@@ -160,6 +160,7 @@
     <Compile Include="Converter\LoggingLevelToColorConverter.cs" />
     <Compile Include="Converter\TransformPropertyConverter.cs" />
     <Compile Include="Models\ActionProperties.cs" />
+    <Compile Include="Models\CameraEmulator.cs" />
     <Compile Include="Models\EffectProperties.cs" />
     <Compile Include="Models\EffectPropertiesProvider.cs" />
     <Compile Include="Models\FlexiWall.cs" />

@@ -24,7 +24,8 @@ namespace FlexiWallUI.ViewModels
         private ImageSource _depthImage;
         private Point3 _interaction;
         private Size _size;
-      
+        private bool _useEmulator;
+
         private MovingOutliersFilter<Point3> _movingOutliersFilter;        
         private LowPassBlur<Point3> _lowPassBlur;
 
@@ -67,6 +68,22 @@ namespace FlexiWallUI.ViewModels
             set { SetProperty(ref _interaction, value); }
         }
 
+        public bool UseEmulator
+        {
+            get { return _useEmulator; }
+            set
+            {
+                SetProperty(ref _useEmulator, value);
+
+                if (value == false)
+                    InteractionChanged += NewInteraction;
+                else
+                    Emulator.NewInteraction += NewInteraction;
+
+            }
+        }
+
+        public CameraEmulator Emulator;
 
         public DelegateCommand LoadCalibrationCommand { get; internal set; }
 
@@ -99,6 +116,8 @@ namespace FlexiWallUI.ViewModels
             // _cameraPositionFilter = new CoordinatesFilter<Point3>(0, 0, 0);
             // _boxBlur = new BoxBlur<Point3>(1);
             // _betterBoxBlur = new BetterBoxBlur<Point3>(2);
+
+            Emulator = new CameraEmulator(new System.Windows.Point(1920, 1080));
 
             // attach Filter to Flexiwall
             _flexiwall.AttachFilter(_movingOutliersFilter);
