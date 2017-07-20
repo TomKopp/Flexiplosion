@@ -35,6 +35,10 @@ namespace FlexiWallUI.Models
         // InputSmoothing
         private EinEuroFilter _xFilter, _yFilter, _zFilter;
 
+        // Emulator
+        private Point _resolution;
+        private float _depth;
+
         #endregion
 
         #region properties
@@ -100,6 +104,14 @@ namespace FlexiWallUI.Models
                 _calibrationResult = value;
                 _distanceToCamera = Calibration.Translate.Z;
             }
+        }
+
+        public bool IsEmulated;
+
+        public Point EmulatorResolution
+        {
+            get { return _resolution; }
+            set { _resolution = value; }
         }
 
         #endregion
@@ -292,6 +304,8 @@ namespace FlexiWallUI.Models
         /// <param name="location"> measured location of Interaction </param>
         private void RaiseInteractionEvent(Point3 location)
         {
+            if (IsEmulated) return;
+
             _interactionEventArgs.ID++;
             _interactionEventArgs.WorldCoordinates.Set(location);
 
@@ -310,6 +324,31 @@ namespace FlexiWallUI.Models
             else if (depth > 0)
             {
                 _interactionEventArgs.TypeOfInteraction = InteractionType.PULLED;
+            }
+
+            OnNewInteraction(this, _interactionEventArgs);
+        }
+
+        public void RaiseInteractionEvent(System.Windows.Point pos, int delta)
+        {
+            if (!IsEmulated) return;
+
+            _interactionEventArgs.ID++;
+
+            if (Math.Abs(_depth + (delta * 0.001f)) < 6)
+                _depth += delta * 0.001f;
+
+            _interactionEventArgs.DisplayCoordinates.Set((float)(pos.X / _resolution.X), (float)(pos.Y / _resolution.Y), _depth);
+
+            _interactionEventArgs.TypeOfInteraction = InteractionType.NONE;
+
+            if (_depth < 0)
+            {
+                _interactionEventArgs.TypeOfInteraction = InteractionType.PULLED;
+            }
+            else if (_depth > 0)
+            {
+                _interactionEventArgs.TypeOfInteraction = InteractionType.PUSHED;
             }
 
             OnNewInteraction(this, _interactionEventArgs);

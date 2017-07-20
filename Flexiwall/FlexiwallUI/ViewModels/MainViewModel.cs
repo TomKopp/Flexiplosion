@@ -67,9 +67,9 @@ namespace FlexiWallUI.ViewModels
 
         public ObservableCollection<TextureResourceViewModel> TextureRepository { get; private set; }
 
-        public CameraEmulator Emulator
+        public FlexiWall FlexiWall
         {
-            get { return SensorVm.Emulator; }
+            get { return SensorVm.FlexiWall; }
         }
 
         public bool UseEmulator

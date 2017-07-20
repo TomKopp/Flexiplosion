@@ -359,8 +359,8 @@ namespace FlexiWallUI.Models
 
             for (int i = 1; i < Settings.Default.StateManagementStackSize; i++)
             {
-                //if (IsValid(type, _history.ToList()[_history.Count - i], specificThreshold))
-                  //  count += 1;
+                if (IsValid(type, _history.ToList()[_history.Count - i], specificThreshold))
+                    count += 1;
             }
 
             return count >= Settings.Default.StateManagementStackSize / 2;

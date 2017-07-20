@@ -26,7 +26,7 @@ namespace FlexiWallUI.ViewModels
         private Size _size;
         private bool _useEmulator;
 
-        private MovingOutliersFilter<Point3> _movingOutliersFilter;        
+        private MovingOutliersFilter<Point3> _movingOutliersFilter;
         private LowPassBlur<Point3> _lowPassBlur;
 
         // Alternativen
@@ -52,16 +52,16 @@ namespace FlexiWallUI.ViewModels
 
         public ImageSource DepthImage
         {
-            get {  return _depthImage; }
+            get { return _depthImage; }
             set { SetProperty(ref _depthImage, value); }
         }
-        
+
         public FlexiWall FlexiWall
         {
             get { return _flexiwall; }
             set { SetProperty(ref _flexiwall, value); }
         }
-        
+
         public Point3 Interaction
         {
             get { return _interaction; }
@@ -74,16 +74,9 @@ namespace FlexiWallUI.ViewModels
             set
             {
                 SetProperty(ref _useEmulator, value);
-
-                if (value == false)
-                    InteractionChanged += NewInteraction;
-                else
-                    Emulator.NewInteraction += NewInteraction;
-
+                FlexiWall.IsEmulated = value;
             }
         }
-
-        public CameraEmulator Emulator;
 
         public DelegateCommand LoadCalibrationCommand { get; internal set; }
 
@@ -105,6 +98,7 @@ namespace FlexiWallUI.ViewModels
             // Punktwolke
             _size = new Size(320, 240);
             _flexiwall = new FlexiWall(_size, 1, 600); // 0.6m travel distance front backs
+            _flexiwall.EmulatorResolution = new Point(1920, 1080);
             _interaction = new Point3();
             _fps = new FPSCounter();
 
@@ -116,8 +110,6 @@ namespace FlexiWallUI.ViewModels
             // _cameraPositionFilter = new CoordinatesFilter<Point3>(0, 0, 0);
             // _boxBlur = new BoxBlur<Point3>(1);
             // _betterBoxBlur = new BetterBoxBlur<Point3>(2);
-
-            Emulator = new CameraEmulator(new System.Windows.Point(1920, 1080));
 
             // attach Filter to Flexiwall
             _flexiwall.AttachFilter(_movingOutliersFilter);
@@ -156,6 +148,8 @@ namespace FlexiWallUI.ViewModels
 
         private void OnCameraDepthFrameArrived(object sender, RSCamera.DepthFrameEventArgs args)
         {
+            if (UseEmulator) return;
+
             // starte Timer für FPS-Zähler
             _fps.SetFrameStart();
 
@@ -202,7 +196,9 @@ namespace FlexiWallUI.ViewModels
 
         private void NewInteraction(object sender, InteractionEventArgs args)
         {
-            if (_flexiwall.Calibration == null) return;
+            if (UseEmulator == false && _flexiwall.Calibration == null)
+                return;
+
             Interaction.Set(args.DisplayCoordinates);
             InteractionChanged?.Invoke(this, args);
         }
