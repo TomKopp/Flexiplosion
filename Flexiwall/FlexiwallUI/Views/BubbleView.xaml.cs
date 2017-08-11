@@ -14,30 +14,16 @@ namespace FlexiWallUI.Views
     /// </summary>
     public partial class BubbleView : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BubbleView"/> class.
+        /// </summary>
         public BubbleView()
         {
             InitializeComponent();
 
-            //FlexiWall_Video.Loaded += delegate
-            //{
-            //    _flexiReady = true;
-            //};
-
-            //FlexiWall_Video.MediaEnded += delegate
-            //{
-            //    FlexiWall_Video.Position = TimeSpan.Zero;
-            //    FlexiWall_Video.Play();
-            //    FlexiWall_Video.Pause();
-            //};
-
             _storyboard.Add(AnimationType.Interfaces, Resources["Storyboard1"] as Storyboard);
-            //_storyboard.Add(AnimationType.Interfaces, Resources["AnimationInterfaces"] as Storyboard);
-            //_storyboard.Add(AnimationType.Data, Resources["AnimationData"] as Storyboard);
-            //_storyboard.Add(AnimationType.Systems, Resources["AnimationSystems"] as Storyboard);
-            //_storyboard.Add(AnimationType.Innovation, Resources["AnimationInnovation"] as Storyboard);
 
             StartAllStoryboards();
-
             UpdateStoryboard();
         }
 
@@ -45,10 +31,13 @@ namespace FlexiWallUI.Views
         private readonly List<Storyboard> _stoppedSbs = new List<Storyboard>();
         private readonly Dictionary<AnimationType, Storyboard> _storyboard = new Dictionary<AnimationType, Storyboard>();
         private TimeSpan _billTimeSpan = TimeSpan.FromSeconds(22);
-        private bool _flexiReady;
-        private int _skipped = 0;
         private BubbleViewModel _vm;
 
+        /// <summary>
+        /// Called when [data context changed].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             _vm = DataContext as BubbleViewModel;
@@ -58,6 +47,9 @@ namespace FlexiWallUI.Views
             _vm.AnimationUpdated += delegate { UpdateStoryboard(); };
         }
 
+        /// <summary>
+        /// Starts all storyboards.
+        /// </summary>
         private void StartAllStoryboards()
         {
             _storyboard.Keys.ToList().ForEach(key =>
@@ -67,6 +59,9 @@ namespace FlexiWallUI.Views
             });
         }
 
+        /// <summary>
+        /// Stops all storyboards.
+        /// </summary>
         private void StopAllStoryboards()
         {
             _stoppedSbs.Clear();
@@ -76,13 +71,13 @@ namespace FlexiWallUI.Views
 
                 _stoppedSbs.Add(stopSb);
                 stopSb.Stop();
-
-                //stopSb.Resume();
-                //stopSb.Seek(TimeSpan.FromMilliseconds(0), TimeSeekOrigin.BeginTime);
-                //stopSb.Pause();
             });
         }
 
+        /// <summary>
+        /// Stops the other story boards.
+        /// </summary>
+        /// <param name="type">The type.</param>
         private void StopOtherStoryBoards(AnimationType type)
         {
             _storyboard.Keys.Where(key => !Equals(key, type)).ToList().ForEach(key =>
@@ -94,10 +89,6 @@ namespace FlexiWallUI.Views
 
                 _stoppedSbs.Add(stopSb);
                 stopSb.Stop();
-
-                //stopSb.Resume();
-                //stopSb.Seek(TimeSpan.FromMilliseconds(0), TimeSeekOrigin.BeginTime);
-                //stopSb.Pause();
             });
         }
 
@@ -108,63 +99,32 @@ namespace FlexiWallUI.Views
         {
             if (_vm == null)
                 return;
-
-            if (_vm.TransitionPosition < 0)
-            {
-                StopAllStoryboards();
-                return;
-            }
-
-            var pos = _vm.TransitionPosition;
-            if (pos > 1)
-                pos = 1;
-
-            //_skipped++;
-            //_skipped = _skipped % FramesToSkip;
-            //if (_skipped != 0)
+            // can NEVER happen - because interaction depth must be lower than Settings.Default.DepthThreshold, but this will not trigger this update function
+            //if (_vm.TransitionPosition < 0)
+            //{
+            //    StopAllStoryboards();
             //    return;
+            //}
+
+            /// keep pos between 0 and 1
+            double pos = _vm.TransitionPosition > 1 ? 1 : _vm.TransitionPosition;
+            /// if interaction depth is just above the threshold set the animation position to 0
+            pos = pos < (Properties.Settings.Default.DepthThreshold / 2) + 0.01 ? 0 : pos;
 
             Application.Current.Dispatcher.Invoke(() =>
             {
                 StopOtherStoryBoards(_vm.CurrentType);
 
                 var currentSb = _storyboard[_vm.CurrentType];
-                if (currentSb == null)
-                    return;
+                //if (currentSb == null) // WHEN can current Sb be NULL?? -> NEVER (else exeption in line above)
+                //    return;
 
                 var ts = TimeSpan.FromMilliseconds(currentSb.Duration.TimeSpan.TotalMilliseconds * pos);
-
-                //if (_stoppedSbs.Contains(currentSb))
-                //{
-                //    currentSb.Begin();
-                //    _stoppedSbs.Remove(currentSb);
-                //}
-                //else
-                //{
-                //    currentSb.Resume();
-                //}
 
                 currentSb.Begin(this, true);
                 currentSb.Pause(this);
                 currentSb.Seek(this, ts, TimeSeekOrigin.BeginTime);
                 currentSb.Pause(this);
-
-                //var showFlexi = _vm.CurrentType == AnimationType.Systems && _flexiReady;
-
-                //if (showFlexi)
-                //{
-                //    var videoPos = (pos - 0.25) / 0.75;
-                //    if (videoPos < 0)
-                //        videoPos = 0;
-
-                //    if (showFlexi)
-                //    {
-                //        FlexiWall_Video.Play();
-                //        FlexiWall_Video.Position = TimeSpan.FromMilliseconds(_billTimeSpan.TotalMilliseconds * videoPos);
-
-                //        FlexiWall_Video.Pause();
-                //    }
-                //}
             });
         }
     }
