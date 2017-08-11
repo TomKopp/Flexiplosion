@@ -1,33 +1,16 @@
-﻿using System;
-using FlexiWallUI.Utilities;
+﻿using FlexiWallUI.Utilities;
 using Prism.Mvvm;
+using System;
 
 namespace FlexiWallUI.ViewModels
 {
     public class BubbleViewModel : BindableBase
     {
-        private double _transPos = 0.5;
-        private bool _isActive = false;
-        private AnimationType _currentAnimType;
-
-
-        public double TransitionPosition
-        {
-            get { return _transPos; }
-            set
-            {
-                SetProperty(ref _transPos, value);
-                AnimationUpdated?.Invoke(this, new EventArgs());
-
-            }
-        }
-
         public AnimationType CurrentType
         {
             get { return _currentAnimType; }
             set { SetProperty(ref _currentAnimType, value); }
         }
-
 
         public bool IsActive
         {
@@ -35,7 +18,20 @@ namespace FlexiWallUI.ViewModels
             set { SetProperty(ref _isActive, value); }
         }
 
+        public double TransitionPosition
+        {
+            get { return _transitionPosition; }
+            set
+            {
+                SetProperty(ref _transitionPosition, value);
+                AnimationUpdated?.Invoke(this, new EventArgs());
+            }
+        }
+
         public event EventHandler<EventArgs> AnimationUpdated;
 
+        private AnimationType _currentAnimType;
+        private bool _isActive = false;
+        private double _transitionPosition = 0.5;
     }
 }

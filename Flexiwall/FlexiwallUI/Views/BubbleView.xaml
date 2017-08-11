@@ -1,534 +1,107 @@
 ﻿<UserControl x:Class="FlexiWallUI.Views.BubbleView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:FlexiWallUI.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mvvm="http://prismlibrary.com/"
              mvvm:ViewModelLocator.AutoWireViewModel="True"
-             mc:Ignorable="d" 
-             d:DesignHeight="1020" d:DesignWidth="1920" DataContextChanged="OnDataContextChanged">
+             mc:Ignorable="d"
+             d:DesignHeight="1080" d:DesignWidth="1920" DataContextChanged="OnDataContextChanged">
     <UserControl.Resources>
-        <Style TargetType="TextBlock" x:Key="LabelStyle">
-            <Setter Property="VerticalAlignment" Value="Bottom"/>
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="FontFamily" Value="{StaticResource EmphasizedFont}"/>
-            <Setter Property="Foreground" Value="#FF333333"/>
-
-        </Style>
-        <Storyboard x:Key="WobbleAnimation" RepeatBehavior="Forever">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="Rect_Interface">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseIn"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1.1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseInOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="Rect_Interface">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseIn"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1.1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseInOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(SkewTransform.AngleX)" Storyboard.TargetName="Rect_Interface">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseIn"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-2"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseInOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.7" Value="2"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.2" Value="-2"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.9" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:7.5" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:8.1" Value="2"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:9" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(SkewTransform.AngleY)" Storyboard.TargetName="Rect_Interface">
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseInOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="3"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.9" Value="3"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.9" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6.7" Value="3"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:7.5" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="Rect_Data">
+        <Storyboard x:Key="Storyboard1" Duration="0:0:2">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="BG">
+                <EasingThicknessKeyFrame KeyTime="0" Value="0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="-10,0,0,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="-25,0,0,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="-45,0,0,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:2" Value="-70,0,0,0"/>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Shard">
+                <EasingThicknessKeyFrame KeyTime="0" Value="0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="0,-10,-7,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="0,-25,-14,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="0,-36,-21,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:2" Value="0,-52,-35,0"/>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Shard_5">
+                <EasingThicknessKeyFrame KeyTime="0" Value="0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="-7,-10,0,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="-14,-20,0,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="-21,-30,0,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:2" Value="-35,-45,0,0"/>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Shard_4">
+                <EasingThicknessKeyFrame KeyTime="0" Value="0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="0,-10,0,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="0,-25,0,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="0,-45,0,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:2" Value="0,-60,0,0"/>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Shard_3">
+                <EasingThicknessKeyFrame KeyTime="0" Value="0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="-7,0,0,-10"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="-14,0,0,-20"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="-28,0,0,-30"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:2" Value="-40,0,0,-40"/>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Shard_2">
+                <EasingThicknessKeyFrame KeyTime="0" Value="0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="0,0,0,-10"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="0,0,0,-20"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="0,0,0,-35"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:2" Value="0,0,0,-50"/>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Shard_1">
+                <EasingThicknessKeyFrame KeyTime="0" Value="0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="0,0,-10,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="0,0,-20,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="0,0,-40,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:2" Value="0,0,-58,0"/>
+            </ThicknessAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Hand">
                 <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.8" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseIn"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.1" Value="1.1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseInOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.2" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.8"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.3"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="Rect_Data">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="BG">
                 <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.8" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseIn"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.1" Value="1.1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseInOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.2" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.9"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.8"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.7"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.6"/>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Rect_Data">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.8" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.1" Value="0"/>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Shard_1">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.9"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.8"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.7"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.6"/>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(SkewTransform.AngleY)" Storyboard.TargetName="Rect_Data">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="3"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.8" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="-3"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.1" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.2" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.8" Value="-3"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.8" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:7.5" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:8.3" Value="3"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:9" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(SkewTransform.AngleX)" Storyboard.TargetName="Rect_Data">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="2"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.8" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.1" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.7" Value="4"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.2" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.8" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6.7" Value="-4"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:7.5" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(SkewTransform.AngleX)" Storyboard.TargetName="Rect_Systems">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="2"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.6" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.3" Value="-2"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.8" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.4" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.3" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6.2" Value="2"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:7.1" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(SkewTransform.AngleY)" Storyboard.TargetName="Rect_Systems">
-                <EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.8" Value="-3"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.6" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.8" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.4" Value="3"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.3" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:7.1" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:7.9" Value="-3"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:9" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="Rect_Systems">
-                <EasingDoubleKeyFrame KeyTime="0:0:4.8" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseIn"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.7" Value="1.1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseInOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:6.8" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="Rect_Systems">
-                <EasingDoubleKeyFrame KeyTime="0:0:4.8" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseIn"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.7" Value="1.1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseInOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:6.8" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="Rect_Innovations">
-                <EasingDoubleKeyFrame KeyTime="0:0:7.3" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseIn"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:8.2" Value="1.1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseInOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:9" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="Rect_Innovations">
-                <EasingDoubleKeyFrame KeyTime="0:0:7.3" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseIn"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:8.2" Value="1.1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseInOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:9" Value="1">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <QuadraticEase EasingMode="EaseOut"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(SkewTransform.AngleY)" Storyboard.TargetName="Rect_Innovations">
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.8" Value="-5"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5.6" Value="4"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6.4" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:7.1" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:7.7" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:8.4" Value="-5"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:9" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(SkewTransform.AngleX)" Storyboard.TargetName="Rect_Innovations">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="-2"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.2" Value="3"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:6.4" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:7.1" Value="-1.6623376623376625"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:7.7" Value="-2"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:8.2" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="AnimationInterfaces" Duration="0:0:4">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid1">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="0.25"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid2">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="0.25"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid3">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="0.25"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Rect_ADB">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Rect_DAMM">
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="AnimationData" Duration="0:0:4">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.25"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid2">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.25"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid3">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.25"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Rect_Patientenakte">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="AnimationSystems" Duration="0:0:4">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.25"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid1">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.25"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid3">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.25"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Rect_BiLL">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="AnimationInnovation" Duration="0:0:4">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.25"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid1">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.25"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid2">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.25"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Rect_Funkenflug">
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.9" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Rect_EIS">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Shard_2">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.9"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.8"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.7"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.6"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-            <BeginStoryboard Storyboard="{StaticResource WobbleAnimation}"/>
+            <BeginStoryboard Storyboard="{StaticResource Storyboard1}"/>
         </EventTrigger>
     </UserControl.Triggers>
-    <Canvas x:Name="canvas" Height="1080" Width="1920">
-        <Rectangle Width="1920" Height="1920" Fill="{StaticResource BGFill}" Canvas.Top="-420"/>
-
-        <TextBlock Style="{StaticResource CaptionStyle}" FontFamily="{StaticResource EmphasizedFont}" FontSize="60" Canvas.Left="140" Canvas.Top="400">CORDE</TextBlock>
-        <TextBlock Style="{StaticResource CaptionStyle}" Canvas.Left="200" Canvas.Top="495" Height="210" TextAlignment="Left" Width="392">Creative Organization Repository for Data Exploration</TextBlock>
-        <Rectangle Width="168" Height="75" Canvas.Left="190" Canvas.Top="991">
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="pack://application:,,,/Resources/img/ESF_transparent_greyscale.png"/>
-            </Rectangle.Fill>
-        </Rectangle>
-
-        <Grid x:Name="grid" RenderTransformOrigin="0.5,0.5">
-            <Grid.RenderTransform>
-                <TransformGroup>
-                    <TranslateTransform X="600" Y="150"/>
-                </TransformGroup>
-            </Grid.RenderTransform>
-            <Ellipse Style="{StaticResource BubbleElipseStyle}" x:Name="Rect_Interface">
-                <Ellipse.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Ellipse.RenderTransform>
-            </Ellipse>
-            <TextBlock Style="{StaticResource CaptionStyle}"><Run Text="Strukturierung Projektdaten"/></TextBlock>
-        </Grid>
-        <Grid x:Name="grid1" RenderTransformOrigin="0.5,0.5">
-            <Grid.RenderTransform>
-                <TransformGroup>
-                    <TranslateTransform X="1200" Y="250"/>
-                </TransformGroup>
-            </Grid.RenderTransform>
-            <Ellipse Style="{StaticResource BubbleElipseStyle}" x:Name="Rect_Data">
-                <Ellipse.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Ellipse.RenderTransform>
-            </Ellipse>
-            <TextBlock Style="{StaticResource CaptionStyle}"><Run Text="Daten-management"/></TextBlock>
-        </Grid>
-        <Grid x:Name="grid2" RenderTransformOrigin="0.5,0.5">
-            <Grid.RenderTransform>
-                <TransformGroup>
-                    <TranslateTransform X="650" Y="600"/>
-                </TransformGroup>
-            </Grid.RenderTransform>
-            <Ellipse Style="{StaticResource BubbleElipseStyle}" x:Name="Rect_Systems">
-                <Ellipse.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Ellipse.RenderTransform>
-            </Ellipse>
-            <TextBlock Style="{StaticResource CaptionStyle}"><Run Text="Formbare Interaktion"/></TextBlock>
-        </Grid>
-        <Grid x:Name="grid3" RenderTransformOrigin="0.5,0.5">
-            <Grid.RenderTransform>
-                <TransformGroup>
-                    <TranslateTransform X="1100" Y="650"/>
-                </TransformGroup>
-            </Grid.RenderTransform>
-            <Ellipse Style="{StaticResource BubbleElipseStyle}" x:Name="Rect_Innovations">
-                <Ellipse.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Ellipse.RenderTransform>
-            </Ellipse>
-            <TextBlock Style="{StaticResource CaptionStyle}" Width="250" Height="160"><Run Text="Daten im mobilen Kontext"/></TextBlock>
-        </Grid>
-        <TextBlock Style="{StaticResource CaptionStyle}" Canvas.Left="1553" Canvas.Top="1017"><Run Text="visualistik.de"/></TextBlock>
-        <Grid Width="500" Height="390" Canvas.Left="1080" Canvas.Top="120" x:Name="Rect_ADB" Opacity="0">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="30"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Rectangle>
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="pack://application:,,,/Resources/img/02_BMW1.png" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased" RenderOptions.ClearTypeHint="Enabled" />
-                </Rectangle.Fill>
-            </Rectangle>
-            <TextBlock Grid.Row="1" Style="{StaticResource LabelStyle}">Technologie Roadmap - Prototyping</TextBlock>
-        </Grid>
-
-
-        <Grid Width="500" Height="405" Canvas.Left="640" Canvas.Top="560" x:Name="Rect_DAMM" Opacity="0">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="30"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Rectangle>
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="pack://application:,,,/Resources/img/03_BMW2.png" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased" RenderOptions.ClearTypeHint="Enabled"/>
-                </Rectangle.Fill>
-            </Rectangle>
-            <TextBlock Grid.Row="1" Style="{StaticResource LabelStyle}">Technologie Roadmap - Interface</TextBlock>
-        </Grid>
-
-        <Grid Width="500" Height="390" Canvas.Left="630" Canvas.Top="300" x:Name="Rect_Patientenakte" Opacity="0">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="30"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Rectangle>
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="pack://application:,,,/Resources/img/01_DNA.png" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased" RenderOptions.ClearTypeHint="Enabled"/>
-                </Rectangle.Fill>
-            </Rectangle>
-            <TextBlock Grid.Row="1" Style="{StaticResource LabelStyle}">Digitales Design Archiv</TextBlock>
-        </Grid>
-        <Grid Width="500" Height="406" Canvas.Left="1140" Canvas.Top="200" x:Name="Rect_EIS" Opacity="0">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="30"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Rectangle>
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="pack://application:,,,/Resources/img/06_Porsche_2016.png" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased" RenderOptions.ClearTypeHint="Enabled" />
-                </Rectangle.Fill>
-            </Rectangle>
-            <TextBlock Grid.Row="1" Style="{StaticResource LabelStyle}">Visualisierung und Interaktion</TextBlock>
-        </Grid>
-
-        <Grid Width="800" Height="480" Canvas.Left="925" Canvas.Top="175" x:Name="Rect_BiLL" Opacity="0">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="30"></RowDefinition>
-            </Grid.RowDefinitions>
-            <MediaElement x:Name="FlexiWall_Video" ScrubbingEnabled="True" LoadedBehavior="Manual" Source="Resources/img/maps.wmv"/>
-            <TextBlock Grid.Row="1" Style="{StaticResource LabelStyle}">Datenexploration und -visualisierung an Elastic Displays</TextBlock>
-        </Grid>
-        <Grid Width="500" Height="406" Canvas.Left="550" Canvas.Top="600" x:Name="Rect_Funkenflug" Opacity="0">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="30"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Rectangle>
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="pack://application:,,,/Resources/img/05_AugmentedCubing.png" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased" RenderOptions.ClearTypeHint="Enabled" />
-                </Rectangle.Fill>
-            </Rectangle>
-            <TextBlock Grid.Row="1" Style="{StaticResource LabelStyle}">Augmented Reality in der Qualitätssicherung</TextBlock>
-        </Grid>
-
-    </Canvas>
+    <Grid x:Name="grid" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Image x:Name="BG" Source="/FlexiWallUI;component/Assets/Familie Cuccina - AM 224 VS.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Image x:Name="Shard" Source="/FlexiWallUI;component/Assets/Shard.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Image x:Name="Shard_5" Source="/FlexiWallUI;component/Assets/Shard #5.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Image x:Name="Shard_4" Source="/FlexiWallUI;component/Assets/Shard #4.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Image x:Name="Shard_3" Source="/FlexiWallUI;component/Assets/Shard #3.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Image x:Name="Shard_2" Source="/FlexiWallUI;component/Assets/Shard #2.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Image x:Name="Shard_1" Source="/FlexiWallUI;component/Assets/Shard #1.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Image x:Name="Brother" Source="/FlexiWallUI;component/Assets/Brother.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Image x:Name="Hand" Source="/FlexiWallUI;component/Assets/Hand.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
 </UserControl>
