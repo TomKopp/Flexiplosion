@@ -244,11 +244,11 @@
     <Resource Include="Assets\Brother.png" />
     <Resource Include="Assets\Familie Cuccina - AM 224 VS.png" />
     <Resource Include="Assets\Hand.png" />
-    <Resource Include="Assets\Shard #1.png" />
-    <Resource Include="Assets\Shard #2.png" />
-    <Resource Include="Assets\Shard #3.png" />
-    <Resource Include="Assets\Shard #4.png" />
-    <Resource Include="Assets\Shard #5.png" />
+    <Resource Include="Assets\Shard1.png" />
+    <Resource Include="Assets\Shard2.png" />
+    <Resource Include="Assets\Shard3.png" />
+    <Resource Include="Assets\Shard4.png" />
+    <Resource Include="Assets\Shard5.png" />
     <Resource Include="Assets\Shard.png" />
     <Content Include="libpxcclr.cs.dll" />
     <Content Include="libpxccpp2c.dll">
