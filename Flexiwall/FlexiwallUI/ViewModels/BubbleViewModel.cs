@@ -12,11 +12,7 @@ namespace FlexiWallUI.ViewModels
             set { SetProperty(ref _currentAnimType, value); }
         }
 
-        public bool IsActive
-        {
-            get { return _isActive; }
-            set { SetProperty(ref _isActive, value); }
-        }
+        public bool IsLocked { get => _isLocked; set => _isLocked = value; }
 
         public double TransitionPosition
         {
@@ -31,7 +27,7 @@ namespace FlexiWallUI.ViewModels
         public event EventHandler<EventArgs> AnimationUpdated;
 
         private AnimationType _currentAnimType;
-        private bool _isActive = false;
+        private bool _isLocked = false;
         private double _transitionPosition = 0.5;
     }
 }

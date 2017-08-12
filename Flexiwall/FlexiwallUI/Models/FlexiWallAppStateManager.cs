@@ -280,7 +280,10 @@ namespace FlexiWallUI.Models
             {
                 if (e.TypeOfInteraction == FlexiWall.InteractionType.PULLED ||
                     e.DisplayCoordinates.Z < Settings.Default.DepthThreshold)
+                {
+                    _vm.BubbleVm.IsLocked = false;
                     return;
+                }
 
                 var minDist = -1.0;
                 //var associatedtype = AnimationType.Data;

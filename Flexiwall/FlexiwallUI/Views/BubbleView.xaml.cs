@@ -97,8 +97,11 @@ namespace FlexiWallUI.Views
         /// </summary>
         private void UpdateStoryboard()
         {
-            if (_vm == null)
+            if (_vm == null
+                || _vm.IsLocked)
+            {
                 return;
+            }
             // can NEVER happen - because interaction depth must be lower than Settings.Default.DepthThreshold, but this will not trigger this update function
             //if (_vm.TransitionPosition < 0)
             //{
@@ -110,6 +113,13 @@ namespace FlexiWallUI.Views
             double pos = _vm.TransitionPosition > 1 ? 1 : _vm.TransitionPosition;
             /// if interaction depth is just above the threshold set the animation position to 0
             pos = pos < (Properties.Settings.Default.DepthThreshold / 2) + 0.01 ? 0 : pos;
+
+            /// freeze animation at last frame if interaction depth is deep enough
+            /// if interaction is "pull" the animation lock will reset
+            if (_vm.TransitionPosition > 1)
+            {
+                _vm.IsLocked = true;
+            }
 
             Application.Current.Dispatcher.Invoke(() =>
             {
