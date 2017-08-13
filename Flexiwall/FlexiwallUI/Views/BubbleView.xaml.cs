@@ -22,6 +22,7 @@ namespace FlexiWallUI.Views
             InitializeComponent();
 
             _storyboard.Add(AnimationType.Interfaces, Resources["Storyboard1"] as Storyboard);
+            _storyboard.Add(AnimationType.Data, Resources["Storyboard2"] as Storyboard);
 
             StartAllStoryboards();
             UpdateStoryboard();
@@ -131,10 +132,6 @@ namespace FlexiWallUI.Views
 
                 var ts = TimeSpan.FromMilliseconds(currentSb.Duration.TimeSpan.TotalMilliseconds * pos);
 
-                //currentSb.Begin(this, true);
-                //currentSb.Pause(this);
-                //currentSb.Seek(this, ts, TimeSeekOrigin.BeginTime);
-                //currentSb.Pause(this);
                 currentSb.Begin();
                 currentSb.Seek(ts, TimeSeekOrigin.BeginTime);
                 currentSb.Pause();
