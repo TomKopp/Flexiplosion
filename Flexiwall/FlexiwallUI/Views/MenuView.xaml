@@ -1,38 +1,39 @@
 ﻿<UserControl x:Class="FlexiWallUI.Views.MenuView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:FlexiWallUI.Views"
              xmlns:mvvm="http://prismlibrary.com/"
              xmlns:controls="clr-namespace:FlexiWallUI.Controls"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="1080" d:DesignWidth="1920" DataContextChanged="OnDataContextChanged">
     <UserControl.Resources>
         <Storyboard x:Key="MenuAnimation" Duration="0:0:4">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="rectangle">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="-1920"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="-1920" />
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="rectangle">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="0.1"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="0.1" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
     <Grid>
-        <controls:AnimatedGTVScreen x:Name="GTVView"/>
-        <Image x:Name="rectangle" Source="pack://application:,,,/Resources/img/Layer_original.jpg" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased" RenderOptions.ClearTypeHint="Enabled">
+        <!--<controls:AnimatedGTVScreen x:Name="GTVView" />-->
+        <local:BubbleView x:Name="MyBubbleView" />
+        <Image x:Name="rectangle" Source="pack://application:,,,/Resources/img/Layer_original.jpg" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased" RenderOptions.ClearTypeHint="Enabled" d:IsHidden="True">
             <!--<Rectangle.Fill>
                 <ImageBrush ImageSource="pack://application:,,,/Resources/img/Plan-01.png" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased" RenderOptions.ClearTypeHint="Enabled" />
             </Rectangle.Fill>-->
             <Image.RenderTransform>
                 <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
+                    <ScaleTransform />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>

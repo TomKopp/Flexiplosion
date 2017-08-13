@@ -131,10 +131,13 @@ namespace FlexiWallUI.Views
 
                 var ts = TimeSpan.FromMilliseconds(currentSb.Duration.TimeSpan.TotalMilliseconds * pos);
 
-                currentSb.Begin(this, true);
-                currentSb.Pause(this);
-                currentSb.Seek(this, ts, TimeSeekOrigin.BeginTime);
-                currentSb.Pause(this);
+                //currentSb.Begin(this, true);
+                //currentSb.Pause(this);
+                //currentSb.Seek(this, ts, TimeSeekOrigin.BeginTime);
+                //currentSb.Pause(this);
+                currentSb.Begin();
+                currentSb.Seek(ts, TimeSeekOrigin.BeginTime);
+                currentSb.Pause();
             });
         }
     }

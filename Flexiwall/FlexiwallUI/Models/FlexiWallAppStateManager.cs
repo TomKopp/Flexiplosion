@@ -218,6 +218,11 @@ namespace FlexiWallUI.Models
             AppStateChanged?.Invoke(this, new EventArgs());
         }
 
+        /// <summary>
+        /// Called when [interaction changed].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="FlexiWall.InteractionEventArgs"/> instance containing the event data.</param>
         private void OnInteractionChanged(object sender, FlexiWall.InteractionEventArgs e)
         {
             EvaluateInteraction(e);
