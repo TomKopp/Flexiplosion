@@ -28,10 +28,7 @@ namespace FlexiWallUI.Views
             UpdateStoryboard();
         }
 
-        private const int FramesToSkip = 1;
-        private readonly List<Storyboard> _stoppedSbs = new List<Storyboard>();
         private readonly Dictionary<AnimationType, Storyboard> _storyboard = new Dictionary<AnimationType, Storyboard>();
-        private TimeSpan _billTimeSpan = TimeSpan.FromSeconds(22);
         private BubbleViewModel _vm;
 
         /// <summary>
@@ -53,11 +50,14 @@ namespace FlexiWallUI.Views
         /// </summary>
         private void StartAllStoryboards()
         {
-            _storyboard.Keys.ToList().ForEach(key =>
-            {
-                _storyboard[key].Begin();
-                _storyboard[key].Pause();
-            });
+            _storyboard
+                .Keys
+                .ToList()
+                .ForEach(key =>
+                {
+                    _storyboard[key].Begin();
+                    _storyboard[key].Pause();
+                });
         }
 
         /// <summary>
@@ -65,14 +65,13 @@ namespace FlexiWallUI.Views
         /// </summary>
         private void StopAllStoryboards()
         {
-            _stoppedSbs.Clear();
-            _storyboard.Keys.ToList().ForEach(key =>
-            {
-                var stopSb = _storyboard[key];
-
-                _stoppedSbs.Add(stopSb);
-                stopSb.Stop();
-            });
+            _storyboard
+                .Keys
+                .ToList()
+                .ForEach(key =>
+                {
+                    _storyboard[key].Stop();
+                });
         }
 
         /// <summary>
@@ -81,16 +80,14 @@ namespace FlexiWallUI.Views
         /// <param name="type">The type.</param>
         private void StopOtherStoryBoards(AnimationType type)
         {
-            _storyboard.Keys.Where(key => !Equals(key, type)).ToList().ForEach(key =>
-            {
-                var stopSb = _storyboard[key];
-
-                if (_stoppedSbs.Contains(stopSb))
-                    return;
-
-                _stoppedSbs.Add(stopSb);
-                stopSb.Stop();
-            });
+            _storyboard
+                .Keys
+                .Where(key => !Equals(key, type))
+                .ToList()
+                .ForEach(key =>
+                {
+                    _storyboard[key].Stop();
+                });
         }
 
         /// <summary>
