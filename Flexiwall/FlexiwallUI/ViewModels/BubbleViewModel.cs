@@ -24,7 +24,10 @@ namespace FlexiWallUI.ViewModels
         /// <value>
         ///   <c>true</c> if this instance is locked; otherwise, <c>false</c>.
         /// </value>
-        public bool IsLocked { get => _isLocked; set => _isLocked = value; }
+        public bool IsLocked {
+            get { return _isLocked; }
+            set { _isLocked = value; }
+        }
 
         /// <summary>
         /// Gets or sets the transition position.
