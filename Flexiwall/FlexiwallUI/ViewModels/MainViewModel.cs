@@ -461,7 +461,9 @@ namespace FlexiWallUI.ViewModels
             Zoom = ZoomFactor * e.DisplayCoordinates.Z;
 
             RectangleOpacity = Zoom >= LenseMinDepth && SelectRectangle ? 1 : 0;
-            EllipseOpacity = Zoom >= LenseMinDepth && SelectEllipse ? 1 : 0;
+            // Always show lense by default without checkbox
+            EllipseOpacity = Zoom >= LenseMinDepth ? 1 : 0;
+            // EllipseOpacity = Zoom >= LenseMinDepth && SelectEllipse ? 1 : 0;
 
             var posX = 1920.0 - ((1.0f - e.DisplayCoordinates.X) * CameraLeftOffset);
             var posY = 1080.0 - ((1.0f - e.DisplayCoordinates.Y) * CameraTopOffset);
