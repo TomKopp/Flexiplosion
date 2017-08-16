@@ -6,6 +6,10 @@ Abgabeversion ist der letzte commit in branch Master bzw Tag v1.
 
 ## Installation and Usage
 
+1. Git installieren falls noch nicht getan
+
+2. `git clone https://gitlab.mg.inf.tu-dresden.de/komplexpraktika/vmi5_2017_veronese/flexiplosion.git`
+
 ## Building
 
 Komponentendiagram/ vereinfachtes Klassendiagram siehe FlexiWallUICodeMap
@@ -23,4 +27,10 @@ Es wird die Flexiwall mit einem aktuellen Windows zum Ausführen benötigt. Es i
 Es ist keine Installation notwendig.
 Es muss die FlexiWallUI.exe im Projectordner "Flexiwall\FlexiwallUI\bin\{Debug|Release}" gestartet werden.
 
-Bedienungsleitung: blubber
+
+## Bedienung
+### Hotkeys
+* F10: Toggle für Opütionsmenü
+### Navigation mit Emulator
+Es ist möglich das Programm mit der Maus zu steuern. Dafür simuliert die Maus die Position einer Hand während man mit dem Mausrad die Tiefe der Hand veränern kann.
+Mausrad nach oben simuliert ein Hineindrücken und vice versa.
