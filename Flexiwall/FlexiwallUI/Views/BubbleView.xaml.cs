@@ -22,7 +22,7 @@ namespace FlexiWallUI.Views
             InitializeComponent();
 
             _storyboard.Add(AnimationType.Interfaces, Resources["Storyboard1"] as Storyboard);
-            _storyboard.Add(AnimationType.Data, Resources["Storyboard2"] as Storyboard);
+            //_storyboard.Add(AnimationType.Data, Resources["Storyboard2"] as Storyboard);
 
             StartAllStoryboards();
             UpdateStoryboard();
@@ -111,10 +111,10 @@ namespace FlexiWallUI.Views
             double pos = _vm.TransitionPosition > 1 ? 1 : _vm.TransitionPosition;
             /// if interaction depth is just above the threshold set the animation position to 0
             pos = pos < (Properties.Settings.Default.DepthThreshold / 2) + 0.01 ? 0 : pos;
+            Console.WriteLine(pos);
 
             /// freeze animation at last frame if interaction depth is deep enough
-            /// if interaction is "pull" the animation lock will reset
-            if (_vm.TransitionPosition > 1)
+            if (pos >= 1)
             {
                 _vm.IsLocked = true;
             }

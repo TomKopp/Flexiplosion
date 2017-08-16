@@ -21,75 +21,269 @@ namespace FlexiWallUI.ViewModels
     {
         #region fields
 
+        private readonly EffectProperties _fxProps;
+        private IFlexiWallAction _action;
+        private bool _bubbleViewActive;
+        private BubbleViewModel _bubbleVm;
+        private double _cameraLeftOffset;
+        private double _cameraTopOffset;
         private OpenGLView _debugView;
 
-        private ActionPropertiesViewModel _selectedAction;
-        private LogViewModel _logVm;
-        private readonly EffectProperties _fxProps;
-        private bool _showPropertyPanel;
-        private bool _showHelp;
+        private float _ellipseOpacity;
+        private string _imgSource;
         private bool _isFullScreen;
-        private bool _mapViewActive;
-        private bool _bubbleViewActive;
-        private LayeredTextureResourceViewModel _selectedLayeredTextureResource;
-        private int _textureIdx;
-
-        private IFlexiWallAction _action;
-        private bool _useEmulator = true;
-        private float _maxEmuDiameter;
-        private MenuViewModel _menuVm;
-        private BubbleViewModel _bubbleVm;
-        private Point _zoomCenter;
-        private Point _offset;
-        private float _zoom;
+        private double _lenseLeftOffset;
+        private double _lenseMinDepth;
         private Rect _lenseRect;
         private double _lenseSize;
         private double _lenseTopOffset;
-        private double _lenseLeftOffset;
-        private float _ellipseOpacity;
+        private LogViewModel _logVm;
+        private bool _mapViewActive;
+        private float _maxEmuDiameter;
+        private MenuViewModel _menuVm;
+        private Point _offset;
         private float _rectangleOpacity;
-        private double _cameraTopOffset;
-        private double _cameraLeftOffset;
-        private bool _selectRectangle;
+        private ActionPropertiesViewModel _selectedAction;
+        private LayeredTextureResourceViewModel _selectedLayeredTextureResource;
         private bool _selectEllipse;
+        private bool _selectRectangle;
+        private bool _showHelp;
+        private bool _showPropertyPanel;
+        private int _textureIdx;
+        private bool _useEmulator = true;
+        private float _zoom;
+        private Point _zoomCenter;
         private float _zoomFactor;
-        private double _lenseMinDepth;
-        private string _imgSource;
 
-        #endregion
+        #endregion fields
 
         #region properties
 
-
-        public SensorViewModel SensorVm { get; private set; }
-
+        public ICommand ActionCmd { get; }
+        public ObservableCollection<ActionPropertiesViewModel> Actions { get; private set; }
         public ICommand AppCmd { get; }
+        public string AppVersion => "Version " + Assembly.GetExecutingAssembly().GetName().Version;
 
-        public ObservableCollection<TextureResourceViewModel> TextureRepository { get; private set; }
+        public float BlurRadius
+        {
+            get { return _fxProps != null ? _fxProps.BlurRadius : 0; }
+            set
+            {
+                if (Math.Abs(_fxProps.BlurRadius - value) < double.Epsilon)
+                    return;
+                _fxProps.BlurRadius = value;
+                EffectPropertiesProvider.CurrentlyActiveProperties = _fxProps;
+                RaisePropertyChanged(nameof(BlurRadius));
+            }
+        }
+
+        public Visibility BubbleViewVisible => _bubbleViewActive ? Visibility.Visible : Visibility.Collapsed;
+
+        public BubbleViewModel BubbleVm
+        {
+            get { return _bubbleVm; }
+            set { SetProperty(ref _bubbleVm, value); }
+        }
+
+        public double CameraLeftOffset
+        {
+            get { return _cameraLeftOffset; }
+            set { SetProperty(ref _cameraLeftOffset, value); }
+        }
+
+        public double CameraTopOffset
+        {
+            get { return _cameraTopOffset; }
+            set { SetProperty(ref _cameraTopOffset, value); }
+        }
+
+        public ICommand ChangeTextureCmd { get; }
+        public ICommand ClearCmd { get; }
+
+        public float EllipseOpacity
+        {
+            get { return _ellipseOpacity; }
+            set { SetProperty(ref _ellipseOpacity, value); }
+        }
 
         public FlexiWall FlexiWall
         {
             get { return SensorVm.FlexiWall; }
         }
 
-        public bool UseEmulator
+        public Visibility HelpPanelVisibility => _showHelp ? Visibility.Visible : Visibility.Collapsed;
+
+        public string ImgSource
         {
-            get { return _useEmulator; }
+            get { return _imgSource; }
+            set { SetProperty(ref _imgSource, value); }
+        }
+
+        public float InteractionDepth
+        {
+            get; private set;
+        }
+
+        public bool InterpolateDepthLayers
+        {
+            get { return _fxProps.InterpolateDepthLayers; }
             set
             {
-                SetProperty(ref _useEmulator, value);
-                RaisePropertyChanged(nameof(IsEmulatorActive));
+                if (_fxProps.InterpolateDepthLayers == value)
+                    return;
+                _fxProps.InterpolateDepthLayers = value;
+                EffectPropertiesProvider.CurrentlyActiveProperties = _fxProps;
+                RaisePropertyChanged(nameof(InterpolateDepthLayers));
+                RaisePropertyChanged(nameof(InterpolateDepthLayersFloat));
+            }
+        }
 
-                if (value == true)
-                    SensorVm.UseEmulator = true;
+        public float InterpolateDepthLayersFloat
+        {
+            get
+            {
+                if (_fxProps != null)
+                    return _fxProps.InterpolateDepthLayers ? 1.0f : 0.0f;
                 else
-                    SensorVm.UseEmulator = false;
+                    return 0;
             }
         }
 
         public bool IsEmulatorActive
         {
             get { return UseEmulator || SensorVm == null || !SensorVm.SensorConnected; }
+        }
+
+        public double LenseLeftOffset
+        {
+            get { return _lenseLeftOffset; }
+            set { SetProperty(ref _lenseLeftOffset, value); }
+        }
+
+        public double LenseMinDepth
+        {
+            get { return _lenseMinDepth; }
+            set { SetProperty(ref _lenseMinDepth, value); }
+        }
+
+        public Rect LenseRect
+        {
+            get { return _lenseRect; }
+            set { SetProperty(ref _lenseRect, value); }
+        }
+
+        public double LenseSize
+        {
+            get { return _lenseSize; }
+            set { SetProperty(ref _lenseSize, value); }
+        }
+
+        public double LenseTopOffset
+        {
+            get { return _lenseTopOffset; }
+            set { SetProperty(ref _lenseTopOffset, value); }
+        }
+
+        public LogViewModel LogVm
+        {
+            get { return _logVm; }
+            set
+            {
+                if (_logVm == value)
+                    return;
+                _logVm = value;
+                RaisePropertyChanged(nameof(LogVm));
+            }
+        }
+
+        public Visibility MapViewVisible => _mapViewActive ? Visibility.Visible : Visibility.Collapsed;
+
+        public float MaxDepth
+        {
+            get { return _fxProps != null ? _fxProps.ClampDepthMax : 0; }
+            set
+            {
+                if (_fxProps.ClampDepthMax.Equals(value))
+                    return;
+                _fxProps.ClampDepthMax = value;
+                EffectPropertiesProvider.CurrentlyActiveProperties = _fxProps;
+                // KinectVm.SetDepthValueRange(MinDepth, MaxDepth);
+                RaisePropertyChanged(nameof(MaxDepth));
+            }
+        }
+
+        public float MaxEmulatorDiameter
+        {
+            get { return _maxEmuDiameter; }
+            set { SetProperty(ref _maxEmuDiameter, value); }
+        }
+
+        public MenuViewModel MenuVm
+        {
+            get { return _menuVm; }
+            set { SetProperty(ref _menuVm, value); }
+        }
+
+        public float MinDepth
+        {
+            get { return _fxProps != null ? _fxProps.ClampDepthMin : 0; }
+            set
+            {
+                if (_fxProps.ClampDepthMin.Equals(value))
+                    return;
+                _fxProps.ClampDepthMin = value;
+                EffectPropertiesProvider.CurrentlyActiveProperties = _fxProps;
+                // KinectVm.SetDepthValueRange(MinDepth, MaxDepth);
+                RaisePropertyChanged(nameof(MinDepth));
+            }
+        }
+
+        public Point OffsetPoint
+        {
+            get { return _offset; }
+            set { SetProperty(ref _offset, value); }
+        }
+
+        public Visibility PropertyPanelVisibility => _showPropertyPanel ? Visibility.Visible : Visibility.Collapsed;
+
+        public float RectangleOpacity
+        {
+            get { return _rectangleOpacity; }
+            set { SetProperty(ref _rectangleOpacity, value); }
+        }
+
+        public ICommand SaveSettingsCmd { get; }
+
+        public ActionPropertiesViewModel SelectedAction
+        {
+            get { return _selectedAction; }
+            set
+            {
+                if (_selectedAction == value)
+                    return;
+                if (_selectedAction != null)
+                    _selectedAction.IsSelectionLocked = false;
+
+                _selectedAction = value;
+
+                if (_selectedAction != null)
+                {
+                    _selectedAction.IsSelectionLocked = true;
+                    // _selectedAction.PropertyChanged += sendActionPoint;
+                }
+
+                RaisePropertyChanged(nameof(SelectedAction));
+            }
+        }
+
+        public LayeredTextureResourceViewModel SelectedLayeredTextureResource
+        {
+            get { return _selectedLayeredTextureResource; }
+            set
+            {
+                ChangeSelectedResourceVm(value, ref _selectedLayeredTextureResource);
+                RaisePropertyChanged(nameof(SelectedLayeredTextureResource));
+            }
         }
 
         public int SelectedTextureIndex
@@ -106,15 +300,19 @@ namespace FlexiWallUI.ViewModels
             }
         }
 
-        public LayeredTextureResourceViewModel SelectedLayeredTextureResource
+        public bool SelectEllipse
         {
-            get { return _selectedLayeredTextureResource; }
-            set
-            {
-                ChangeSelectedResourceVm(value, ref _selectedLayeredTextureResource);
-                RaisePropertyChanged(nameof(SelectedLayeredTextureResource));
-            }
+            get { return _selectEllipse; }
+            set { SetProperty(ref _selectEllipse, value); }
         }
+
+        public bool SelectRectangle
+        {
+            get { return _selectRectangle; }
+            set { SetProperty(ref _selectRectangle, value); }
+        }
+
+        public SensorViewModel SensorVm { get; private set; }
 
         public Boolean ShowDepth
         {
@@ -149,9 +347,28 @@ namespace FlexiWallUI.ViewModels
             }
         }
 
-        public float InteractionDepth
+        public ICommand ShowOpenGlCmd { get; }
+        public FlexiWallAppStateManager StateManager { get; private set; }
+        public ObservableCollection<TextureResourceViewModel> TextureRepository { get; private set; }
+        public Visibility TitleBarVisibility => _isFullScreen ? Visibility.Collapsed : Visibility.Visible;
+
+        public ICommand ToggleDepthImageCmd { get; }
+
+        public ICommand TogglePropertyCmd { get; }
+
+        public bool UseEmulator
         {
-            get; private set;
+            get { return _useEmulator; }
+            set
+            {
+                SetProperty(ref _useEmulator, value);
+                RaisePropertyChanged(nameof(IsEmulatorActive));
+
+                if (value == true)
+                    SensorVm.UseEmulator = true;
+                else
+                    SensorVm.UseEmulator = false;
+            }
         }
 
         public float Zoom
@@ -160,255 +377,28 @@ namespace FlexiWallUI.ViewModels
             set { SetProperty(ref _zoom, value); }
         }
 
-        public float ZoomFactor
-        {
-            get { return _zoomFactor; }
-            set { SetProperty(ref _zoomFactor, value); }
-        }
-
-        public Point OffsetPoint
-        {
-            get { return _offset; }
-            set { SetProperty(ref _offset, value); }
-        }
-
         public Point ZoomCenterPoint
         {
             get { return _zoomCenter; }
             set { SetProperty(ref _zoomCenter, value); }
         }
 
-        public double LenseSize
+        public float ZoomFactor
         {
-            get { return _lenseSize; }
-            set { SetProperty(ref _lenseSize, value); }
+            get { return _zoomFactor; }
+            set { SetProperty(ref _zoomFactor, value); }
         }
 
-        public double LenseMinDepth
-        {
-            get { return _lenseMinDepth; }
-            set { SetProperty(ref _lenseMinDepth, value); }
-        }
+        private readonly string IR = "pack://application:,,,/Resources/img/Layer_ir.jpg";
+        private readonly string XRAY = "pack://application:,,,/Resources/img/Layer_xray.jpg";
 
-        public double LenseTopOffset
-        {
-            get { return _lenseTopOffset; }
-            set { SetProperty(ref _lenseTopOffset, value); }
-        }
-
-        public double LenseLeftOffset
-        {
-            get { return _lenseLeftOffset; }
-            set { SetProperty(ref _lenseLeftOffset, value); }
-        }
-
-        public double CameraTopOffset
-        {
-            get { return _cameraTopOffset; }
-            set { SetProperty(ref _cameraTopOffset, value); }
-        }
-
-        public double CameraLeftOffset
-        {
-            get { return _cameraLeftOffset; }
-            set { SetProperty(ref _cameraLeftOffset, value); }
-        }
-
-        public Rect LenseRect
-        {
-            get { return _lenseRect; }
-            set { SetProperty(ref _lenseRect, value); }
-        }
-
-        public float EllipseOpacity
-        {
-            get { return _ellipseOpacity; }
-            set { SetProperty(ref _ellipseOpacity, value); }
-        }
-
-        public float RectangleOpacity
-        {
-            get { return _rectangleOpacity; }
-            set { SetProperty(ref _rectangleOpacity, value); }
-        }
-
-        public bool SelectRectangle
-        {
-            get { return _selectRectangle; }
-            set { SetProperty(ref _selectRectangle, value); }
-        }
-
-        public bool SelectEllipse
-        {
-            get { return _selectEllipse; }
-            set { SetProperty(ref _selectEllipse, value); }
-        }
-
-        public float MinDepth
-        {
-            get { return _fxProps != null ? _fxProps.ClampDepthMin : 0; }
-            set
-            {
-                if (_fxProps.ClampDepthMin.Equals(value))
-                    return;
-                _fxProps.ClampDepthMin = value;
-                EffectPropertiesProvider.CurrentlyActiveProperties = _fxProps;
-                // KinectVm.SetDepthValueRange(MinDepth, MaxDepth);
-                RaisePropertyChanged(nameof(MinDepth));
-            }
-        }
-
-        public float MaxDepth
-        {
-            get { return _fxProps != null ? _fxProps.ClampDepthMax : 0; }
-            set
-            {
-                if (_fxProps.ClampDepthMax.Equals(value))
-                    return;
-                _fxProps.ClampDepthMax = value;
-                EffectPropertiesProvider.CurrentlyActiveProperties = _fxProps;
-                // KinectVm.SetDepthValueRange(MinDepth, MaxDepth);
-                RaisePropertyChanged(nameof(MaxDepth));
-            }
-        }
-
-        public float BlurRadius
-        {
-            get { return _fxProps != null ? _fxProps.BlurRadius : 0; }
-            set
-            {
-                if (Math.Abs(_fxProps.BlurRadius - value) < double.Epsilon)
-                    return;
-                _fxProps.BlurRadius = value;
-                EffectPropertiesProvider.CurrentlyActiveProperties = _fxProps;
-                RaisePropertyChanged(nameof(BlurRadius));
-            }
-        }
-
-        readonly string XRAY = "pack://application:,,,/Resources/img/Layer_xray.jpg";
-        readonly string IR = "pack://application:,,,/Resources/img/Layer_ir.jpg";
-
-        public string ImgSource
-        {
-            get { return _imgSource; }
-            set { SetProperty(ref _imgSource, value); }
-        }
-
-        public float MaxEmulatorDiameter
-        {
-            get { return _maxEmuDiameter; }
-            set { SetProperty(ref _maxEmuDiameter, value); }
-        }
-
-        public bool InterpolateDepthLayers
-        {
-            get { return _fxProps.InterpolateDepthLayers; }
-            set
-            {
-                if (_fxProps.InterpolateDepthLayers == value)
-                    return;
-                _fxProps.InterpolateDepthLayers = value;
-                EffectPropertiesProvider.CurrentlyActiveProperties = _fxProps;
-                RaisePropertyChanged(nameof(InterpolateDepthLayers));
-                RaisePropertyChanged(nameof(InterpolateDepthLayersFloat));
-            }
-        }
-
-        public float InterpolateDepthLayersFloat
-        {
-            get
-            {
-                if (_fxProps != null)
-                    return _fxProps.InterpolateDepthLayers ? 1.0f : 0.0f;
-                else
-                    return 0;
-            }
-        }
-
-
-        public Visibility PropertyPanelVisibility => _showPropertyPanel ? Visibility.Visible : Visibility.Collapsed;
-
-        public Visibility HelpPanelVisibility => _showHelp ? Visibility.Visible : Visibility.Collapsed;
-
-        public Visibility TitleBarVisibility => _isFullScreen ? Visibility.Collapsed : Visibility.Visible;
-
-        public Visibility MapViewVisible => _mapViewActive ? Visibility.Visible : Visibility.Collapsed;
-
-        public Visibility BubbleViewVisible => _bubbleViewActive ? Visibility.Visible : Visibility.Collapsed;
-
-        public string AppVersion => "Version " + Assembly.GetExecutingAssembly().GetName().Version;
-
-        public ObservableCollection<ActionPropertiesViewModel> Actions { get; private set; }
-
-        public ActionPropertiesViewModel SelectedAction
-        {
-            get { return _selectedAction; }
-            set
-            {
-                if (_selectedAction == value)
-                    return;
-                if (_selectedAction != null)
-                    _selectedAction.IsSelectionLocked = false;
-
-                _selectedAction = value;
-
-                if (_selectedAction != null)
-                {
-                    _selectedAction.IsSelectionLocked = true;
-                    // _selectedAction.PropertyChanged += sendActionPoint;
-                }
-
-                RaisePropertyChanged(nameof(SelectedAction));
-            }
-        }
-
-        public LogViewModel LogVm
-        {
-            get { return _logVm; }
-            set
-            {
-                if (_logVm == value)
-                    return;
-                _logVm = value;
-                RaisePropertyChanged(nameof(LogVm));
-            }
-        }
-
-        public MenuViewModel MenuVm
-        {
-            get { return _menuVm; }
-            set { SetProperty(ref _menuVm, value); }
-        }
-
-        public BubbleViewModel BubbleVm
-        {
-            get { return _bubbleVm; }
-            set { SetProperty(ref _bubbleVm, value); }
-        }
-
-        public FlexiWallAppStateManager StateManager { get; private set; }
-
-        public ICommand ActionCmd { get; }
-
-        public ICommand ClearCmd { get; }
-
-        public ICommand ChangeTextureCmd { get; }
-
-        public ICommand ToggleDepthImageCmd { get; }
-
-        public ICommand SaveSettingsCmd { get; }
-
-        public ICommand TogglePropertyCmd { get; }
-
-        public ICommand ShowOpenGlCmd { get; }
-
-        #endregion
+        #endregion properties
 
         #region Events
 
         public event EventHandler SelectedTextureChanged;
 
-        #endregion
+        #endregion Events
 
         #region constructor
 
@@ -439,6 +429,7 @@ namespace FlexiWallUI.ViewModels
 
             MenuVm = new MenuViewModel();
             BubbleVm = new BubbleViewModel();
+            BubbleVm.SensorVm = SensorVm;
 
             var logWindow = new LogView();
             _logVm = logWindow.DataContext as LogViewModel;
@@ -461,7 +452,9 @@ namespace FlexiWallUI.ViewModels
             Zoom = ZoomFactor * e.DisplayCoordinates.Z;
 
             RectangleOpacity = Zoom >= LenseMinDepth && SelectRectangle ? 1 : 0;
-            EllipseOpacity = Zoom >= LenseMinDepth && SelectEllipse ? 1 : 0;
+            // Always show lense by default without checkbox
+            EllipseOpacity = Zoom >= LenseMinDepth ? 1 : 0;
+            // EllipseOpacity = Zoom >= LenseMinDepth && SelectEllipse ? 1 : 0;
 
             var posX = 1920.0 - ((1.0f - e.DisplayCoordinates.X) * CameraLeftOffset);
             var posY = 1080.0 - ((1.0f - e.DisplayCoordinates.Y) * CameraTopOffset);
@@ -470,7 +463,7 @@ namespace FlexiWallUI.ViewModels
             ZoomCenterPoint = new Point(e.DisplayCoordinates.X * posX,
                 e.DisplayCoordinates.Y * posY);
 
-            // Punkt mit offset            
+            // Punkt mit offset
             var offsetX = ZoomCenterPoint.X + LenseLeftOffset - (ZoomCenterPoint.X);
             var offsetY = ZoomCenterPoint.Y + LenseTopOffset - (ZoomCenterPoint.Y);
             OffsetPoint = new Point(offsetX, offsetY);
@@ -486,7 +479,7 @@ namespace FlexiWallUI.ViewModels
             RaisePropertyChanged(nameof(InteractionDepth));
         }
 
-        #endregion
+        #endregion constructor
 
         private void OnAppStateChanged(object sender, EventArgs e)
         {
@@ -508,71 +501,29 @@ namespace FlexiWallUI.ViewModels
         #region Methods
 
         /// <summary>
-        /// Kamera hat neue Tiefenwerte
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        private void DepthFrameReady(object sender, RSCamera.DepthFrameEventArgs args)
-        {
-
-        }
-
-        private void InitTextureRepo()
-        {
-            if (TextureRepository == null)
-            {
-                TextureRepository = new ObservableCollection<TextureResourceViewModel>();
-            }
-            else
-            {
-                TextureRepository.ToList().ForEach(txRepo => txRepo.Unload());
-                TextureRepository.Clear();
-            }
-
-            //TODO: outsourcing
-            var acc = new XmlTextureResourceAccess<LayeredTextureRepository>();
-            ITextureRepository<LayeredTextureResource> repo = acc.Load("resources/data.xml");
-
-
-            //TODO: Refactor: create  Property (DependencyProperty ?) or define in Settings.xml instead of intializing formatString here
-            double h = SystemParameters.PrimaryScreenHeight;
-            string formatString = "1080p";
-
-            if (h < 800)
-                formatString = "720p";
-            else if (h < 1000)
-                formatString = "800p";
-
-            repo.TextureResources.ForEach(res => TextureRepository.Add(new LayeredTextureResourceViewModel(res, formatString)));
-            if (SelectedLayeredTextureResource == null)
-                SelectedLayeredTextureResource = TextureRepository[0] as LayeredTextureResourceViewModel;
-
-        }
-
-        /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <remarks>
-        /// why use generic type parameter instead of simply using base class 
+        /// why use generic type parameter instead of simply using base class
         /// (== "private void ChangeSelectedResource(TextureResourceViewModel newValue, ref TextureResourceViewModel property)) ?
         /// "ref" in C# does not allow to be used with any type different from the type specified (no derived types etc.). Reason for this:
         /// allowing derived types to be passed by reference would wallow you to do something like this:
         /// <code>
         /// class Base { }
-        /// 
+        ///
         /// class Derived : Base { }
-        /// 
+        ///
         /// class Program
         /// {
         ///     static void f(ref Base b) { }
-        /// 
+        ///
         ///     public static void Main()
         ///     {
         ///         Derived d = new Derived();
         ///         f(ref d);
         ///     }
         /// }
-        /// 
+        ///
         /// static void f(ref Base b) { b = new Base(); }
         /// </code>
         /// which would completely break type-safety (consider: calling
@@ -597,27 +548,68 @@ namespace FlexiWallUI.ViewModels
             OnSelectedTextureChanged();
         }
 
+        /// <summary>
+        /// Kamera hat neue Tiefenwerte
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void DepthFrameReady(object sender, RSCamera.DepthFrameEventArgs args)
+        {
+        }
+
+        private void InitTextureRepo()
+        {
+            if (TextureRepository == null)
+            {
+                TextureRepository = new ObservableCollection<TextureResourceViewModel>();
+            }
+            else
+            {
+                TextureRepository.ToList().ForEach(txRepo => txRepo.Unload());
+                TextureRepository.Clear();
+            }
+
+            //TODO: outsourcing
+            var acc = new XmlTextureResourceAccess<LayeredTextureRepository>();
+            ITextureRepository<LayeredTextureResource> repo = acc.Load("resources/data.xml");
+
+            //TODO: Refactor: create  Property (DependencyProperty ?) or define in Settings.xml instead of intializing formatString here
+            double h = SystemParameters.PrimaryScreenHeight;
+            string formatString = "1080p";
+
+            if (h < 800)
+                formatString = "720p";
+            else if (h < 1000)
+                formatString = "800p";
+
+            repo.TextureResources.ForEach(res => TextureRepository.Add(new LayeredTextureResourceViewModel(res, formatString)));
+            if (SelectedLayeredTextureResource == null)
+                SelectedLayeredTextureResource = TextureRepository[0] as LayeredTextureResourceViewModel;
+        }
+
         private void OnSelectedTextureChanged()
         {
             if (SelectedTextureChanged != null)
                 SelectedTextureChanged(this, null);
         }
 
-        #endregion
+        #endregion Methods
 
         #region IFlexiWallApplicationActions Implementation
 
-        public void TogglePropertyPanelVisibility()
+        public void Exit()
         {
-            _showPropertyPanel = !_showPropertyPanel;
-            RaisePropertyChanged(nameof(PropertyPanelVisibility));
+            Application.Current.Shutdown();
         }
 
-        public void ToggleFullScreen()
+        public void Play(double duration)
         {
-            _isFullScreen = !_isFullScreen;
-            Application.Current.MainWindow.WindowState = _isFullScreen ? WindowState.Maximized : WindowState.Normal;
-            RaisePropertyChanged(nameof(TitleBarVisibility));
+            MenuVm.TransitionPosition += duration;
+        }
+
+        public void SwitchAppState(FlexiWallAppState targetState)
+        {
+            StateManager.AdvanceToState(targetState);
         }
 
         public void ToggleAppMinimized()
@@ -625,9 +617,11 @@ namespace FlexiWallUI.ViewModels
             Application.Current.MainWindow.WindowState = WindowState.Minimized;
         }
 
-        public void Exit()
+        public void ToggleFullScreen()
         {
-            Application.Current.Shutdown();
+            _isFullScreen = !_isFullScreen;
+            Application.Current.MainWindow.WindowState = _isFullScreen ? WindowState.Maximized : WindowState.Normal;
+            RaisePropertyChanged(nameof(TitleBarVisibility));
         }
 
         public void ToggleHelp()
@@ -641,19 +635,81 @@ namespace FlexiWallUI.ViewModels
             _logVm.LogWindowCmd.Execute("ToggleVisibility");
         }
 
-        public void Play(double duration)
+        public void TogglePropertyPanelVisibility()
         {
-            MenuVm.TransitionPosition += duration;
+            _showPropertyPanel = !_showPropertyPanel;
+            RaisePropertyChanged(nameof(PropertyPanelVisibility));
         }
 
-        public void SwitchAppState(FlexiWallAppState targetState)
-        {
-            StateManager.AdvanceToState(targetState);
-        }
-
-        #endregion
+        #endregion IFlexiWallApplicationActions Implementation
 
         #region Command Implementations
+
+        private void ApplySettings()
+        {
+            // @todo: Load Settings and set according variables in vm
+            MinDepth = Settings.Default.MinDepth;
+            MaxDepth = Settings.Default.MaxDepth;
+            BlurRadius = Settings.Default.BlurRadius;
+            InterpolateDepthLayers = Settings.Default.InterpolateDepthLayers;
+            ShowDepth = Settings.Default.ShowDepth;
+            MaxEmulatorDiameter = Settings.Default.MaxEmulatorDiameter;
+            UseEmulator = Settings.Default.UseEmulator;
+
+            InteractionDepth = Settings.Default.InteractionDepth;
+            SelectEllipse = Settings.Default.SelectEllipse;
+            SelectRectangle = Settings.Default.SelectRectangle;
+            ZoomFactor = Settings.Default.ZoomFactor;
+            LenseSize = Settings.Default.LenseSize;
+            LenseMinDepth = Settings.Default.LenseMinDepth;
+            LenseTopOffset = Settings.Default.LenseTopOffset;
+            LenseLeftOffset = Settings.Default.LenseLeftOffset;
+            CameraTopOffset = Settings.Default.CameraTopOffset;
+            CameraLeftOffset = Settings.Default.CameraLeftOffset;
+
+            //LoadCalibaration
+
+            var fileName = Settings.Default.ConfigFile;
+            if (!string.IsNullOrWhiteSpace(fileName) && File.Exists(fileName))
+            {
+                SensorVm.FlexiWall.Calibration = SerialUtil.DeSerializeObject<FlexiWallCalibration.Models.Rectangle3>(new FileStream(fileName, FileMode.Open, FileAccess.Read));
+            }
+        }
+
+        private void ChangeTextureResources(object parameter)
+        {
+            var param = parameter as String;
+
+            if (String.IsNullOrEmpty(param))
+            {
+                Log.LogCommandExecuteFailedNoParam(ChangeTextureCmd);
+                return;
+            }
+
+            int idx = SelectedTextureIndex;
+            int max = TextureRepository.Count;
+
+            if (param.Equals("inc"))
+            {
+                idx = (idx > max - 2) ? 0 : idx + 1;
+            }
+
+            if (param.Equals("dec"))
+            {
+                idx = (idx < 1) ? max - 1 : idx - 1;
+            }
+
+            SelectedTextureIndex = idx;
+
+            Application.Current.Dispatcher.Invoke(() =>
+                Log.LogCommandSucessfullyExecuted(ChangeTextureCmd, param, $"New Texture Index is:{idx}"));
+        }
+
+        private void ClearAction(object parameter)
+        {
+            Actions.Clear();
+            Log.LogCommandSucessfullyExecuted(ClearCmd);
+        }
 
         private void ExecuteFlexiWallAction(object parameter)
         {
@@ -706,63 +762,6 @@ namespace FlexiWallUI.ViewModels
                 _action = null;
                 Log.LogCommandSucessfullyExecuted(ActionCmd, param);
             }
-
-        }
-
-        private void ClearAction(object parameter)
-        {
-            Actions.Clear();
-            Log.LogCommandSucessfullyExecuted(ClearCmd);
-        }
-
-        private void ChangeTextureResources(object parameter)
-        {
-            var param = parameter as String;
-
-            if (String.IsNullOrEmpty(param))
-            {
-                Log.LogCommandExecuteFailedNoParam(ChangeTextureCmd);
-                return;
-            }
-
-            int idx = SelectedTextureIndex;
-            int max = TextureRepository.Count;
-
-            if (param.Equals("inc"))
-            {
-                idx = (idx > max - 2) ? 0 : idx + 1;
-            }
-
-            if (param.Equals("dec"))
-            {
-                idx = (idx < 1) ? max - 1 : idx - 1;
-            }
-
-            SelectedTextureIndex = idx;
-
-            Application.Current.Dispatcher.Invoke(() =>
-                Log.LogCommandSucessfullyExecuted(ChangeTextureCmd, param, $"New Texture Index is:{idx}"));
-        }
-
-        private void ToggleDepthImage(object parameter)
-        {
-            var param = parameter as String;
-
-            if (String.IsNullOrEmpty(param))
-            {
-                Log.LogCommandExecuteFailedNoParam(ToggleDepthImageCmd);
-                return;
-            }
-
-            if (param.Equals("toggleDepth"))
-            {
-                ShowDepth = !ShowDepth;
-                Log.LogCommandSucessfullyExecuted(ToggleDepthImageCmd, param);
-            }
-            else
-            {
-                throw new NotImplementedException("Value " + param + " is not connected with an implemented action.");
-            }
         }
 
         private void SaveSettings(object parameter)
@@ -814,34 +813,38 @@ namespace FlexiWallUI.ViewModels
             Settings.Default.Save();
         }
 
-        private void ApplySettings()
+        /// <summary>
+        /// shows pointcloud and interaction via openGl
+        /// </summary>
+        /// <param name="obj"></param>
+        private void ShowOpenGlView(object obj)
         {
-            // @todo: Load Settings and set according variables in vm
-            MinDepth = Settings.Default.MinDepth;
-            MaxDepth = Settings.Default.MaxDepth;
-            BlurRadius = Settings.Default.BlurRadius;
-            InterpolateDepthLayers = Settings.Default.InterpolateDepthLayers;
-            ShowDepth = Settings.Default.ShowDepth;
-            MaxEmulatorDiameter = Settings.Default.MaxEmulatorDiameter;
-            UseEmulator = Settings.Default.UseEmulator;
+            _debugView = new OpenGLView();
+            _debugView.RenderTarget = SensorVm.FlexiWall;
+            _debugView.Interaction = SensorVm.Interaction;
+            _debugView.Show();
 
-            InteractionDepth = Settings.Default.InteractionDepth;
-            SelectEllipse = Settings.Default.SelectEllipse;
-            SelectRectangle = Settings.Default.SelectRectangle;
-            ZoomFactor = Settings.Default.ZoomFactor;
-            LenseSize = Settings.Default.LenseSize;
-            LenseMinDepth = Settings.Default.LenseMinDepth;
-            LenseTopOffset = Settings.Default.LenseTopOffset;
-            LenseLeftOffset = Settings.Default.LenseLeftOffset;
-            CameraTopOffset = Settings.Default.CameraTopOffset;
-            CameraLeftOffset = Settings.Default.CameraLeftOffset;
+            // @Todo: logging
+        }
 
-            //LoadCalibaration
+        private void ToggleDepthImage(object parameter)
+        {
+            var param = parameter as String;
 
-            var fileName = Settings.Default.ConfigFile;
-            if (!string.IsNullOrWhiteSpace(fileName) && File.Exists(fileName))
+            if (String.IsNullOrEmpty(param))
             {
-                SensorVm.FlexiWall.Calibration = SerialUtil.DeSerializeObject<FlexiWallCalibration.Models.Rectangle3>(new FileStream(fileName, FileMode.Open, FileAccess.Read));
+                Log.LogCommandExecuteFailedNoParam(ToggleDepthImageCmd);
+                return;
+            }
+
+            if (param.Equals("toggleDepth"))
+            {
+                ShowDepth = !ShowDepth;
+                Log.LogCommandSucessfullyExecuted(ToggleDepthImageCmd, param);
+            }
+            else
+            {
+                throw new NotImplementedException("Value " + param + " is not connected with an implemented action.");
             }
         }
 
@@ -868,20 +871,6 @@ namespace FlexiWallUI.ViewModels
             Log.LogCommandSucessfullyExecuted(TogglePropertyCmd, param, $"New value for{pi.Name} is: {pi.GetValue(this, null)}");
         }
 
-        /// <summary>
-        /// shows pointcloud and interaction via openGl
-        /// </summary>
-        /// <param name="obj"></param>
-        private void ShowOpenGlView(object obj)
-        {
-            _debugView = new OpenGLView();
-            _debugView.RenderTarget = SensorVm.FlexiWall;
-            _debugView.Interaction = SensorVm.Interaction;
-            _debugView.Show();
-
-            // @Todo: logging
-        }
-
-        #endregion
+        #endregion Command Implementations
     }
 }

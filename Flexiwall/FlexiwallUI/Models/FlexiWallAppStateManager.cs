@@ -285,29 +285,36 @@ namespace FlexiWallUI.Models
             {
                 if (e.TypeOfInteraction == FlexiWall.InteractionType.PULLED ||
                     e.DisplayCoordinates.Z < Settings.Default.DepthThreshold)
-                {
-                    _vm.BubbleVm.IsLocked = false;
+                {                    
                     return;
                 }
+
+                if (e.TypeOfInteraction == FlexiWall.InteractionType.PULLED)
+                {
+                    _vm.BubbleVm.IsLocked = false;
+                }
+
+                
 
                 /// set start animation
                 AnimationType associatedtype = AnimationType.Interfaces;
                 /// lock bubbleview if cursor is not within "action area"
-                _vm.BubbleVm.IsLocked = true;
+                //_vm.BubbleVm.IsLocked = true;
 
                 /// determine which "action area" to select
-                if (e.DisplayCoordinates.X > 0.506246875
-                    && e.DisplayCoordinates.X < 0.58241875)
-                {
-                    // rectangle 1
-                    if (e.DisplayCoordinates.Y > 0.448611111
-                        && e.DisplayCoordinates.Y < 0.678472222)
-                    {
-                        associatedtype = AnimationType.Data; // Zuanna
-                        _vm.BubbleVm.IsLocked = false; // unlock bubbleview when cursor is in action area
-                    }
-                }
-                else if (e.DisplayCoordinates.X > 0.7003875
+                //if (e.DisplayCoordinates.X > 0.506246875
+                //    && e.DisplayCoordinates.X < 0.58241875)
+                //{
+                //    // rectangle 1
+                //    if (e.DisplayCoordinates.Y > 0.448611111
+                //        && e.DisplayCoordinates.Y < 0.678472222)
+                //    {
+                //        associatedtype = AnimationType.Data; // Zuanna
+                //        _vm.BubbleVm.IsLocked = false; // unlock bubbleview when cursor is in action area
+                //    }
+                //}
+                //else
+                if (e.DisplayCoordinates.X > 0.7003875
                     && e.DisplayCoordinates.X < 0.780075)
                 {
                     // rectangle 2
@@ -315,12 +322,17 @@ namespace FlexiWallUI.Models
                         && e.DisplayCoordinates.Y < 0.678472222)
                     {
                         associatedtype = AnimationType.Interfaces; // Antonio
-                        _vm.BubbleVm.IsLocked = false; // unlock bubbleview when cursor is in action area
+                        //_vm.BubbleVm.IsLocked = false; // unlock bubbleview when cursor is in action area
                     }
                 }
-                
+
                 /// determine animation position based on interaction depth
-                double pos = e.DisplayCoordinates.Z - Settings.Default.DepthThreshold;
+                double pos = (e.DisplayCoordinates.Z - Settings.Default.DepthThreshold) * ((1 + Settings.Default.DepthThreshold) / Settings.Default.StateManagementPushThreshold) - Settings.Default.DepthThreshold;
+
+                //double pos = ((e.DisplayCoordinates.Z - Settings.Default.DepthThreshold) * 1.0 /
+                //           Settings.Default.StateManagementPushThreshold);
+                //if (pos > .5)
+                //    pos = pos;
 
                 _vm.BubbleVm.CurrentType = associatedtype;
                 _vm.BubbleVm.TransitionPosition = pos;

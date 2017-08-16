@@ -1,11 +1,13 @@
 ﻿using FlexiWallUI.Utilities;
 using Prism.Mvvm;
 using System;
+using FlexiWallUI.Models;
 
 namespace FlexiWallUI.ViewModels
 {
     public class BubbleViewModel : BindableBase
     {
+
         /// <summary>
         /// Gets or sets the type of the current.
         /// </summary>
@@ -24,7 +26,10 @@ namespace FlexiWallUI.ViewModels
         /// <value>
         ///   <c>true</c> if this instance is locked; otherwise, <c>false</c>.
         /// </value>
-        public bool IsLocked { get => _isLocked; set => _isLocked = value; }
+        public bool IsLocked {
+            get { return _isLocked; }
+            set { _isLocked = value; }
+        }
 
         /// <summary>
         /// Gets or sets the transition position.
@@ -41,6 +46,24 @@ namespace FlexiWallUI.ViewModels
                 AnimationUpdated?.Invoke(this, new EventArgs());
             }
         }
+
+        private SensorViewModel _sensorVm;
+
+        public SensorViewModel SensorVm
+        {
+            get { return _sensorVm; }
+            set
+            {
+                _sensorVm = value;
+                SensorVm.InteractionChanged += OnInteractionChanged;
+            }
+        }
+
+        private void OnInteractionChanged(object sender, FlexiWall.InteractionEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
 
         /// <summary>
         /// Occurs when [animation updated].

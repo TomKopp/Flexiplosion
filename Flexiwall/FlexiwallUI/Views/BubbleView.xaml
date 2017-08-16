@@ -11,72 +11,42 @@
         <Storyboard x:Key="Storyboard1" Duration="0:0:2.5">
             <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Holy_Family">
                 <EasingThicknessKeyFrame KeyTime="0" Value="0" />
-                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="-10,0,0,0" />
-                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="-25,0,0,0" />
-                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="-45,0,0,0" />
                 <EasingThicknessKeyFrame KeyTime="0:0:2" Value="-70,0,0,0" />
             </ThicknessAnimationUsingKeyFrames>
             <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Love">
                 <EasingThicknessKeyFrame KeyTime="0" Value="0" />
-                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="0,-10,-7,0" />
-                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="0,-25,-14,0" />
-                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="0,-36,-21,0" />
                 <EasingThicknessKeyFrame KeyTime="0:0:2" Value="0,-52,-35,0" />
             </ThicknessAnimationUsingKeyFrames>
             <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Faith">
                 <EasingThicknessKeyFrame KeyTime="0" Value="0" />
-                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="-7,-10,0,0" />
-                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="-14,-20,0,0" />
-                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="-21,-30,0,0" />
                 <EasingThicknessKeyFrame KeyTime="0:0:2" Value="-35,-45,0,0" />
             </ThicknessAnimationUsingKeyFrames>
             <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Hope">
                 <EasingThicknessKeyFrame KeyTime="0" Value="0" />
-                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="0,-10,0,0" />
-                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="0,-25,0,0" />
-                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="0,-45,0,0" />
                 <EasingThicknessKeyFrame KeyTime="0:0:2" Value="0,-60,0,0" />
             </ThicknessAnimationUsingKeyFrames>
             <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Zuanna">
                 <EasingThicknessKeyFrame KeyTime="0" Value="0" />
-                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="-7,0,0,-10" />
-                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="-14,0,0,-20" />
-                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="-28,0,0,-30" />
                 <EasingThicknessKeyFrame KeyTime="0:0:2" Value="-40,0,0,-40" />
             </ThicknessAnimationUsingKeyFrames>
             <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Dog">
                 <EasingThicknessKeyFrame KeyTime="0" Value="0" />
-                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="0,0,0,-10" />
-                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="0,0,0,-20" />
-                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="0,0,0,-35" />
                 <EasingThicknessKeyFrame KeyTime="0:0:2" Value="0,0,0,-50" />
             </ThicknessAnimationUsingKeyFrames>
             <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Andrea_Nurse">
                 <EasingThicknessKeyFrame KeyTime="0" Value="0" />
-                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="0,0,-10,0" />
-                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="0,0,-20,0" />
-                <EasingThicknessKeyFrame KeyTime="0:0:1.5" Value="0,0,-40,0" />
                 <EasingThicknessKeyFrame KeyTime="0:0:2" Value="0,0,-58,0" />
             </ThicknessAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Holy_Family">
                 <EasingDoubleKeyFrame KeyTime="0" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.9" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.8" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.7" />
                 <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.6" />
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Andrea_Nurse">
                 <EasingDoubleKeyFrame KeyTime="0" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.9" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.8" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.7" />
                 <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.6" />
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Dog">
                 <EasingDoubleKeyFrame KeyTime="0" Value="1" />
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.9" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.8" />
-                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.7" />
                 <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.6" />
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Speechbubble_Antonio">
@@ -95,6 +65,118 @@
             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="Speechbubble_Zuanna">
                 <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
             </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Andrea_Nurse">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="112.5"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Andrea_Nurse">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="24"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Holy_Family">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-310.5"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Holy_Family">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-1.5"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Zuanna">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-226.5"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Zuanna">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="166.5"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Dog">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="39"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Dog">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="163.5"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Faith">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-183"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Faith">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-106.5"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Love">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="103.5"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Love">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-181.5"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Hope">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-180"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Hope">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-52.5"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="path">
+                <EasingColorKeyFrame KeyTime="0:0:2" Value="#FF12E739"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="path1">
+                <EasingColorKeyFrame KeyTime="0:0:2" Value="#FF12E739"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="path2">
+                <EasingColorKeyFrame KeyTime="0:0:2" Value="#FF12E739"/>
+            </ColorAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.StrokeThickness)" Storyboard.TargetName="path">
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="6"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.StrokeThickness)" Storyboard.TargetName="path1">
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="6"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.StrokeThickness)" Storyboard.TargetName="path2">
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="6"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="path3">
+                <EasingColorKeyFrame KeyTime="0:0:2" Value="#FF12E739"/>
+            </ColorAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.StrokeThickness)" Storyboard.TargetName="path3">
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="6"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="path3">
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="path">
+                <EasingColorKeyFrame KeyTime="0:0:2" Value="#FF12E739"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="path1">
+                <EasingColorKeyFrame KeyTime="0:0:2" Value="#FF12E739"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="path2">
+                <EasingColorKeyFrame KeyTime="0:0:2" Value="#FF12E739"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="path3">
+                <EasingColorKeyFrame KeyTime="0:0:2" Value="#FF12E739"/>
+            </ColorAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="path">
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="path1">
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="path2">
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="Storyboard2" Duration="0:0:2.5">
             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="Speechbubble_Antonio">
@@ -176,13 +258,76 @@
         </EventTrigger>
     </UserControl.Triggers>-->
     <Grid x:Name="grid" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Image x:Name="Holy_Family" Source="/FlexiWallUI;component/Assets/Familie Cuccina - AM 224 VS.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <Image x:Name="Love" Source="/FlexiWallUI;component/Assets/Shard.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <Image x:Name="Faith" Source="/FlexiWallUI;component/Assets/Shard5.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <Image x:Name="Hope" Source="/FlexiWallUI;component/Assets/Shard4.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <Image x:Name="Zuanna" Source="/FlexiWallUI;component/Assets/Shard3.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <Image x:Name="Dog" Source="/FlexiWallUI;component/Assets/Shard2.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <Image x:Name="Andrea_Nurse" Source="/FlexiWallUI;component/Assets/Shard1.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Image x:Name="Holy_Family" Source="/FlexiWallUI;component/Assets/Familie Cuccina - AM 224 VS.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" >
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="Love" Source="/FlexiWallUI;component/Assets/Shard.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" >
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="Faith" Source="/FlexiWallUI;component/Assets/Shard5.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" >
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="Hope" Source="/FlexiWallUI;component/Assets/Shard4.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" >
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="Zuanna" Source="/FlexiWallUI;component/Assets/Shard3.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" >
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="Dog" Source="/FlexiWallUI;component/Assets/Shard2.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" >
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image x:Name="Andrea_Nurse" Source="/FlexiWallUI;component/Assets/Shard1.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" >
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
         <Image x:Name="Brother_Antonio" Source="/FlexiWallUI;component/Assets/Brother.png" Height="679.382" Width="1729.989" HorizontalAlignment="Center" VerticalAlignment="Center" />
         <Grid x:Name="Speechbubble_Antonio" HorizontalAlignment="Left" Width="122" Margin="1449,312,0,315">
             <Polygon Points="0,0 15,0 15,15" Fill="White" Stroke="Black" Margin="0,10,0,0" />
@@ -226,5 +371,9 @@
                 </ImageBrush>
             </Rectangle.Fill>
         </Rectangle>
+        <Path x:Name="path" Data="M177.5005,107 C3.5004967,2 0.50000354,0.5 0.50000354,0.5" HorizontalAlignment="Left" Height="108" Margin="925.994,191.5,0,0" Stroke="Black" VerticalAlignment="Top" Width="178.501" Fill="Black"/>
+        <Path x:Name="path1" Data="M114.5005,171.5 L0.50000354,0.5" HorizontalAlignment="Left" Height="172.5" Margin="1132.994,107.5,0,0" Stroke="Black" VerticalAlignment="Top" Width="115.501" Fill="Black"/>
+        <Path x:Name="path2" Data="M0.5,140 L46.999507,0.5" HorizontalAlignment="Left" Height="141" Margin="1366.995,112,0,0" Stroke="Black" VerticalAlignment="Top" Width="47.5" Fill="Black"/>
+        <Path x:Name="path3" Data="M257.00048,0.5 L0.49998828,122" HorizontalAlignment="Left" Height="122.5" Margin="945.495,424,0,0" Stroke="Black" VerticalAlignment="Top" Width="258" Fill="Black"/>
     </Grid>
 </UserControl>
