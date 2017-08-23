@@ -155,23 +155,6 @@ namespace FlexiWallUI.Models
             StartStateChangedTimer(FlexiWallActionType.Pull, targetState, oldState);
         }
 
-        //private static readonly Dictionary<AnimationType, Point> AnimationControls = new Dictionary<AnimationType, Point>
-        //{
-        //    { AnimationType.Interfaces, new Point(750,300)},
-        //    { AnimationType.Data, new Point(1350,400)},
-        //    { AnimationType.Systems, new Point(800,750)},
-        //    { AnimationType.Innovation, new Point(1250,800)}
-        //};
-
-        //private static readonly Dictionary<AnimationType, Point> AnimationDistances = new Dictionary<AnimationType, Point>
-        //{
-        //    { AnimationType.Interfaces, new Point(-1,-1)},
-        //    { AnimationType.Data, new Point(-1,-1)},
-        //    { AnimationType.Systems, new Point(-1,-1)},
-        //    { AnimationType.Innovation, new Point(-1,-1)}
-        //};
-
-        //private static double SqrDistThreshold = 400 * 400;
         private readonly Stack<FlexiWall.InteractionEventArgs> _history = new Stack<FlexiWall.InteractionEventArgs>();
         private readonly DispatcherTimer _switchMapTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(50) };
         private readonly DispatcherTimer _switchStateTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(Settings.Default.StateManagerActionDelay) };
@@ -281,62 +264,11 @@ namespace FlexiWallUI.Models
                 _vm.MenuVm.TransitionPosition = pos;
             }
 
-            if (AppState == FlexiWallAppState.ExploreCompany)
-            {
-                if (e.TypeOfInteraction == FlexiWall.InteractionType.PULLED ||
-                    e.DisplayCoordinates.Z < Settings.Default.DepthThreshold)
-                {                    
-                    return;
-                }
-
-                if (e.TypeOfInteraction == FlexiWall.InteractionType.PULLED)
-                {
-                    _vm.BubbleVm.IsLocked = false;
-                }
-
-                
-
-                /// set start animation
-                AnimationType associatedtype = AnimationType.Interfaces;
-                /// lock bubbleview if cursor is not within "action area"
-                //_vm.BubbleVm.IsLocked = true;
-
-                /// determine which "action area" to select
-                //if (e.DisplayCoordinates.X > 0.506246875
-                //    && e.DisplayCoordinates.X < 0.58241875)
-                //{
-                //    // rectangle 1
-                //    if (e.DisplayCoordinates.Y > 0.448611111
-                //        && e.DisplayCoordinates.Y < 0.678472222)
-                //    {
-                //        associatedtype = AnimationType.Data; // Zuanna
-                //        _vm.BubbleVm.IsLocked = false; // unlock bubbleview when cursor is in action area
-                //    }
-                //}
-                //else
-                if (e.DisplayCoordinates.X > 0.7003875
-                    && e.DisplayCoordinates.X < 0.780075)
-                {
-                    // rectangle 2
-                    if (e.DisplayCoordinates.Y > 0.469444444
-                        && e.DisplayCoordinates.Y < 0.678472222)
-                    {
-                        associatedtype = AnimationType.Interfaces; // Antonio
-                        //_vm.BubbleVm.IsLocked = false; // unlock bubbleview when cursor is in action area
-                    }
-                }
-
-                /// determine animation position based on interaction depth
-                double pos = (e.DisplayCoordinates.Z - Settings.Default.DepthThreshold) * ((1 + Settings.Default.DepthThreshold) / Settings.Default.StateManagementPushThreshold) - Settings.Default.DepthThreshold;
-
-                //double pos = ((e.DisplayCoordinates.Z - Settings.Default.DepthThreshold) * 1.0 /
-                //           Settings.Default.StateManagementPushThreshold);
-                //if (pos > .5)
-                //    pos = pos;
-
-                _vm.BubbleVm.CurrentType = associatedtype;
-                _vm.BubbleVm.TransitionPosition = pos;
-            }
+            // MEINS
+            //if (AppState == FlexiWallAppState.ExploreCompany)
+            //{
+            //    _vm.BubbleVm.UpdateAnimation();
+            //}
         }
 
         private void OnSwitchMapTimerTick(object sender, EventArgs e)

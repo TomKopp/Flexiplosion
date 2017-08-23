@@ -24,11 +24,9 @@ namespace FlexiWallUI.ViewModels
         private readonly EffectProperties _fxProps;
         private IFlexiWallAction _action;
         private bool _bubbleViewActive;
-        private BubbleViewModel _bubbleVm;
         private double _cameraLeftOffset;
         private double _cameraTopOffset;
         private OpenGLView _debugView;
-
         private float _ellipseOpacity;
         private string _imgSource;
         private bool _isFullScreen;
@@ -51,6 +49,10 @@ namespace FlexiWallUI.ViewModels
         private bool _showPropertyPanel;
         private int _textureIdx;
         private bool _useEmulator = true;
+
+        //private BubbleViewModel _bubbleVm;
+        private VeroneseViewModel _veroneseViewModel;
+
         private float _zoom;
         private Point _zoomCenter;
         private float _zoomFactor;
@@ -79,11 +81,11 @@ namespace FlexiWallUI.ViewModels
 
         public Visibility BubbleViewVisible => _bubbleViewActive ? Visibility.Visible : Visibility.Collapsed;
 
-        public BubbleViewModel BubbleVm
-        {
-            get { return _bubbleVm; }
-            set { SetProperty(ref _bubbleVm, value); }
-        }
+        //public BubbleViewModel BubbleVm
+        //{
+        //    get { return _bubbleVm; }
+        //    set { SetProperty(ref _bubbleVm, value); }
+        //}
 
         public double CameraLeftOffset
         {
@@ -371,6 +373,14 @@ namespace FlexiWallUI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the veronese view model.
+        /// </summary>
+        /// <value>
+        /// The veronese view model.
+        /// </value>
+        public VeroneseViewModel VeroneseViewModel { get => _veroneseViewModel; set => _veroneseViewModel = value; }
+
         public float Zoom
         {
             get { return _zoom; }
@@ -428,8 +438,17 @@ namespace FlexiWallUI.ViewModels
             StateManager.AppStateChanged += OnAppStateChanged;
 
             MenuVm = new MenuViewModel();
-            BubbleVm = new BubbleViewModel();
-            BubbleVm.SensorVm = SensorVm;
+            //BubbleVm = new BubbleViewModel
+            //{
+            //    FlexiWallAppStateManager = StateManager,
+            //    SensorViewModel = SensorVm
+            //};
+
+            VeroneseViewModel = new VeroneseViewModel
+            {
+                FlexiWallAppStateManager = StateManager,
+                SensorViewModel = SensorVm
+            };
 
             var logWindow = new LogView();
             _logVm = logWindow.DataContext as LogViewModel;

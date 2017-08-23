@@ -11,98 +11,95 @@
 		xmlns:controls="clr-namespace:FlexiWallUI.Controls"
 		prism:ViewModelLocator.AutoWireViewModel="True"
 		mc:Ignorable="d"
-		Title="{Binding FPS.FPS}" 
-		MinHeight="700" MinWidth="485" Height="1080" Width="1920" 
+		Title="{Binding FPS.FPS}"
+		MinHeight="700" MinWidth="485" Height="1080" Width="1920"
 		WindowStyle="None"
 		AllowsTransparency="True"
 		ResizeMode="CanResizeWithGrip"
-		BorderThickness="1" BorderBrush="{DynamicResource SpecialColorBrush}" 
+		BorderThickness="1" BorderBrush="{DynamicResource SpecialColorBrush}"
         x:Name="FlexiWallMainWindow"
 		d:DataContext="{d:DesignData viewModels:MainViewModel}"
         MouseMove="FlexiWallMainWindow_MouseMove"
         MouseWheel="FlexiWallMainWindow_MouseWheel">
 
     <Window.InputBindings>
-        <KeyBinding Command="{Binding AppCmd}" CommandParameter="Help" Gesture="F1"/>
-        <KeyBinding Command="{Binding AppCmd}" CommandParameter="ToggleLog" Gesture="F2"/>
-        <KeyBinding Command="{Binding AppCmd}" CommandParameter="PropertyPanelVisibility" Gesture="F10"/>
-        <KeyBinding Command="{Binding AppCmd}" CommandParameter="FullScreen" Gesture="F12"/>
-        <KeyBinding Command="{Binding AppCmd}" CommandParameter="Minimize" Gesture="F11"/>
-        <KeyBinding Command="{Binding AppCmd}" CommandParameter="Exit" Gesture="Escape"/>
-        <KeyBinding Command="{Binding ChangeTextureCmd}" CommandParameter="inc" Key="OemPlus"/>
-        <KeyBinding Command="{Binding ChangeTextureCmd}" CommandParameter="dec" Key="Oem2"/>
-        <KeyBinding Command="{Binding ToggleDepthImageCmd}" CommandParameter="toggleDepth" Key="V"/>
-        <KeyBinding Command="{Binding SaveSettingsCmd}" CommandParameter="Save" Modifiers="Control" Key="S"/>
-        <KeyBinding Command="{Binding TogglePropertyCmd}" CommandParameter="InterpolateDepthLayers" Key ="B"/>
-        <KeyBinding Command="{Binding LogVm.SaveLogCmd}" Modifiers="Control+Alt" Key="S"/>
-        <KeyBinding Command="{Binding LogVm.ClearLogCmd}" Modifiers="Control" Key="Delete"/>
-        <KeyBinding Command="{Binding AppCmd}" CommandParameter="SB_Forward" Key ="M"/>
-        <KeyBinding Command="{Binding AppCmd}" CommandParameter="SB_Backward" Key ="N"/>
-        <KeyBinding Command="{Binding AppCmd}" CommandParameter="State_Idle" Key ="D1"/>
-        <KeyBinding Command="{Binding AppCmd}" CommandParameter="State_Menu" Key ="D2"/>
-        <KeyBinding Command="{Binding AppCmd}" CommandParameter="State_Maps" Key ="D3"/>
-        <KeyBinding Command="{Binding AppCmd}" CommandParameter="State_Company" Key ="D4"/>
+        <KeyBinding Command="{Binding AppCmd}" CommandParameter="Help" Gesture="F1" />
+        <KeyBinding Command="{Binding AppCmd}" CommandParameter="ToggleLog" Gesture="F2" />
+        <KeyBinding Command="{Binding AppCmd}" CommandParameter="PropertyPanelVisibility" Gesture="F10" />
+        <KeyBinding Command="{Binding AppCmd}" CommandParameter="FullScreen" Gesture="F12" />
+        <KeyBinding Command="{Binding AppCmd}" CommandParameter="Minimize" Gesture="F11" />
+        <KeyBinding Command="{Binding AppCmd}" CommandParameter="Exit" Gesture="Escape" />
+        <KeyBinding Command="{Binding ChangeTextureCmd}" CommandParameter="inc" Key="OemPlus" />
+        <KeyBinding Command="{Binding ChangeTextureCmd}" CommandParameter="dec" Key="Oem2" />
+        <KeyBinding Command="{Binding ToggleDepthImageCmd}" CommandParameter="toggleDepth" Key="V" />
+        <KeyBinding Command="{Binding SaveSettingsCmd}" CommandParameter="Save" Modifiers="Control" Key="S" />
+        <KeyBinding Command="{Binding TogglePropertyCmd}" CommandParameter="InterpolateDepthLayers" Key ="B" />
+        <KeyBinding Command="{Binding LogVm.SaveLogCmd}" Modifiers="Control+Alt" Key="S" />
+        <KeyBinding Command="{Binding LogVm.ClearLogCmd}" Modifiers="Control" Key="Delete" />
+        <KeyBinding Command="{Binding AppCmd}" CommandParameter="SB_Forward" Key ="M" />
+        <KeyBinding Command="{Binding AppCmd}" CommandParameter="SB_Backward" Key ="N" />
+        <KeyBinding Command="{Binding AppCmd}" CommandParameter="State_Idle" Key ="D1" />
+        <KeyBinding Command="{Binding AppCmd}" CommandParameter="State_Menu" Key ="D2" />
+        <KeyBinding Command="{Binding AppCmd}" CommandParameter="State_Maps" Key ="D3" />
+        <KeyBinding Command="{Binding AppCmd}" CommandParameter="State_Company" Key ="D4" />
     </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="250" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
-            <RowDefinition/>
+            <RowDefinition Height="25" />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" x:Name="ContentGrid" Visibility="{Binding MapViewVisible}">
 
             <Image Source="pack://application:,,,/Resources/img/Layer_original.jpg" Width="1920" Height="1080" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased" RenderOptions.ClearTypeHint="Enabled" />
-        
 
             <!-- Lense as ellipse -->
             <Grid Opacity="{Binding EllipseOpacity}">
                 <!--<Ellipse Width="{calc:Binding (LenseSize) + 4}" Height="{calc:Binding (LenseSize) + 4}" Fill="White">
                     <Ellipse.RenderTransform>
-                        <TranslateTransform X="{calc:Binding ZoomCenterPoint.X - 0.5*(LenseSize + 4)}"  Y="{calc:Binding ZoomCenterPoint.Y - 0.5*(LenseSize + 4)}"/>
+                        <TranslateTransform X="{calc:Binding ZoomCenterPoint.X - 0.5*(LenseSize + 4)}"  Y="{calc:Binding ZoomCenterPoint.Y - 0.5*(LenseSize + 4)}" />
                     </Ellipse.RenderTransform>
                 </Ellipse>-->
-                <Image Source="{Binding ImgSource}" Width="1920" Height="1080" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased" RenderOptions.ClearTypeHint="Enabled" >
+                <Image Source="{Binding ImgSource}" Width="1920" Height="1080" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased" RenderOptions.ClearTypeHint="Enabled">
                     <Image.RenderTransform>
                         <TransformGroup>
-                            <!--<ScaleTransform ScaleX="{Binding Zoom}" ScaleY="{Binding Zoom}"/>-->
-                            <TranslateTransform X="{Binding OffsetPoint.X}" Y="{Binding OffsetPoint.Y}"/>
+                            <!--<ScaleTransform ScaleX="{Binding Zoom}" ScaleY="{Binding Zoom}" />-->
+                            <TranslateTransform X="{Binding OffsetPoint.X}" Y="{Binding OffsetPoint.Y}" />
                         </TransformGroup>
-
                     </Image.RenderTransform>
                     <Image.Clip>
-                        <EllipseGeometry Center="{Binding ZoomCenterPoint}" RadiusX="{calc:Binding LenseSize}" RadiusY="{calc:Binding LenseSize}"/>
+                        <EllipseGeometry Center="{Binding ZoomCenterPoint}" RadiusX="{calc:Binding LenseSize}" RadiusY="{calc:Binding LenseSize}" />
                     </Image.Clip>
                 </Image>
 
                 <!--<Ellipse Stroke="White" StrokeThickness="2" Fill="Gray" Width="{calc:Binding LenseSize / Zoom}" Height="{calc:Binding LenseSize / Zoom}" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.3">
                     <Ellipse.RenderTransform>
-                        <TranslateTransform X="{calc:Binding (ZoomCenterPoint.X) - 0.5*(LenseSize / Zoom)}"  Y="{calc:Binding (ZoomCenterPoint.Y) - 0.5*(LenseSize / Zoom)}"/>
+                        <TranslateTransform X="{calc:Binding (ZoomCenterPoint.X) - 0.5*(LenseSize / Zoom)}"  Y="{calc:Binding (ZoomCenterPoint.Y) - 0.5*(LenseSize / Zoom)}" />
                     </Ellipse.RenderTransform>
                 </Ellipse>-->
             </Grid>
 
             <!-- Lense as rect -->
             <Grid Opacity="{Binding RectangleOpacity}">
-                <Image Source="pack://application:,,,/Resources/img/Plan-01.png"  Width="1920" Height="1080" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased" RenderOptions.ClearTypeHint="Enabled" >
+                <Image Source="pack://application:,,,/Resources/img/Plan-01.png"  Width="1920" Height="1080" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased" RenderOptions.ClearTypeHint="Enabled">
                     <Image.RenderTransform>
                         <TransformGroup>
-                            <ScaleTransform ScaleX="{Binding Zoom}" ScaleY="{Binding Zoom}"/>
-                            <TranslateTransform X="{Binding OffsetPoint.X}" Y="{Binding OffsetPoint.Y}"/>
+                            <ScaleTransform ScaleX="{Binding Zoom}" ScaleY="{Binding Zoom}" />
+                            <TranslateTransform X="{Binding OffsetPoint.X}" Y="{Binding OffsetPoint.Y}" />
                         </TransformGroup>
-
                     </Image.RenderTransform>
                     <Image.Clip>
-                        <RectangleGeometry Rect="{Binding LenseRect}"/>
+                        <RectangleGeometry Rect="{Binding LenseRect}" />
                     </Image.Clip>
                 </Image>
 
                 <Rectangle Fill="Gray" Width="90" Height="90" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.3">
                     <Rectangle.RenderTransform>
-                        <TranslateTransform X="{Binding ZoomCenterPoint.X}"  Y="{Binding ZoomCenterPoint.Y}"/>
+                        <TranslateTransform X="{Binding ZoomCenterPoint.X}"  Y="{Binding ZoomCenterPoint.Y}" />
                     </Rectangle.RenderTransform>
                 </Rectangle>
             </Grid>
@@ -110,99 +107,97 @@
             <!-- debug points
             <Ellipse Fill="Red" Width="10" Height="10" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Ellipse.RenderTransform>
-                    <TranslateTransform X="{Binding OffsetPoint.X}"  Y="{Binding OffsetPoint.Y}"/>
+                    <TranslateTransform X="{Binding OffsetPoint.X}"  Y="{Binding OffsetPoint.Y}" />
                 </Ellipse.RenderTransform>
             </Ellipse>
 
             <Ellipse Fill="Blue" Width="12" Height="12" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Ellipse.RenderTransform>
-                    <TranslateTransform X="{Binding ZoomCenterPoint.X}"  Y="{Binding ZoomCenterPoint.Y}"/>
+                    <TranslateTransform X="{Binding ZoomCenterPoint.X}"  Y="{Binding ZoomCenterPoint.Y}" />
                 </Ellipse.RenderTransform>
             </Ellipse>
             -->
-
         </Grid>
 
-        <local:MenuView Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" DataContext="{Binding MenuVm}" Visibility="{Binding IsActive, Converter={StaticResource BoolConv}}"/>
+        <local:MenuView Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" DataContext="{Binding MenuVm}" Visibility="{Binding IsActive, Converter={StaticResource BoolConv}}" />
 
         <Canvas Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Visibility="{Binding BubbleViewVisible}" Width="1920" Height="1080">
-            <local:BubbleView DataContext="{Binding BubbleVm}" Width="1920" Height="1080"/>
+            <!--<local:BubbleView DataContext="{Binding BubbleVm}" Width="1920" Height="1080" />-->
+            <local:Veronese DataContext="{Binding VeroneseViewModel, Mode=OneTime}" Width="1920" Height="1080" />
         </Canvas>
 
         <!--Property Panel-->
         <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Stretch" Background="#AA000000" Visibility="{Binding PropertyPanelVisibility}">
-            <controls:PropertyPanel/>
-            <Button Content="Load calibration" Command="{Binding SensorVm.LoadCalibrationCommand}"/>
-            <Button Content="show openGl" Command="{Binding ShowOpenGlCmd}"/>
+            <controls:PropertyPanel />
+            <Button Content="Load calibration" Command="{Binding SensorVm.LoadCalibrationCommand}" />
+            <Button Content="show openGl" Command="{Binding ShowOpenGlCmd}" />
             <StackPanel Orientation="Horizontal">
-                <TextBlock Width="100" Text="InteractionDepth: "/>
-                <TextBlock Text="{Binding InteractionDepth}"/>
+                <TextBlock Width="100" Text="InteractionDepth: " />
+                <TextBlock Text="{Binding InteractionDepth}" />
             </StackPanel>
-            
-            <CheckBox Content="Show Ellipse" IsChecked="{Binding SelectEllipse}"/>
-            <CheckBox Content="Show Rectangle" IsChecked="{Binding SelectRectangle}"/>
+
+            <CheckBox Content="Show Ellipse" IsChecked="{Binding SelectEllipse}" />
+            <CheckBox Content="Show Rectangle" IsChecked="{Binding SelectRectangle}" />
 
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Zoom" Width="100"/>
-                <Slider Minimum="1" Maximum="100" Interval="1" Value="{Binding ZoomFactor}" Width="200"/>
+                <TextBlock Text="Zoom" Width="100" />
+                <Slider Minimum="1" Maximum="100" Interval="1" Value="{Binding ZoomFactor}" Width="200" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Lense Size" Width="100"/>
-                <Slider Minimum="50" Maximum="500" Interval="10" Value="{Binding LenseSize}" Width="200"/>
+                <TextBlock Text="Lense Size" Width="100" />
+                <Slider Minimum="50" Maximum="500" Interval="10" Value="{Binding LenseSize}" Width="200" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Lense Min Depth" Width="100"/>
-                <Slider Minimum="1" Maximum="5" Value="{Binding LenseMinDepth}" Width="200"/>
+                <TextBlock Text="Lense Min Depth" Width="100" />
+                <Slider Minimum="1" Maximum="5" Value="{Binding LenseMinDepth}" Width="200" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Lense Top-Offset" Width="100"/>
-                <Slider Minimum="-500" Maximum="500" Interval="10" Value="{Binding LenseTopOffset}" Width="200"/>
+                <TextBlock Text="Lense Top-Offset" Width="100" />
+                <Slider Minimum="-500" Maximum="500" Interval="10" Value="{Binding LenseTopOffset}" Width="200" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Lense Left-Offset" Width="100"/>
-                <Slider Minimum="-500" Maximum="500" Interval="10" Value="{Binding LenseLeftOffset}" Width="200"/>
+                <TextBlock Text="Lense Left-Offset" Width="100" />
+                <Slider Minimum="-500" Maximum="500" Interval="10" Value="{Binding LenseLeftOffset}" Width="200" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Camera Top-Offset" Width="100"/>
-                <Slider Minimum="-1000" Maximum="1000" Interval="1" Value="{Binding CameraTopOffset}" Width="200"/>
+                <TextBlock Text="Camera Top-Offset" Width="100" />
+                <Slider Minimum="-1000" Maximum="1000" Interval="1" Value="{Binding CameraTopOffset}" Width="200" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Camera Left-Offset" Width="100"/>
-                <Slider Minimum="-1000" Maximum="1000" Interval="1" Value="{Binding CameraLeftOffset}" Width="200"/>
+                <TextBlock Text="Camera Left-Offset" Width="100" />
+                <Slider Minimum="-1000" Maximum="1000" Interval="1" Value="{Binding CameraLeftOffset}" Width="200" />
             </StackPanel>
 
             <!--<controls:PropertyPanelKinect />-->
         </StackPanel>
 
-
         <!--About Box-->
-        <controls:AboutBoxControl Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Visibility="{Binding HelpPanelVisibility}"/>
+        <controls:AboutBoxControl Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Visibility="{Binding HelpPanelVisibility}" />
 
         <!--Title Bar-->
         <Grid Grid.Column="0" Grid.Row="0" Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2" Background="{DynamicResource SpecialColorBrush}" Visibility="{Binding TitleBarVisibility}"
 			MouseMove="MoveWindow">
-            <Image Source="pack://application:,,,/Resources/icon/FlexiWallWPF_icon_03.ico" HorizontalAlignment="Left" Margin="3"/>
+            <Image Source="pack://application:,,,/Resources/icon/FlexiWallWPF_icon_03.ico" HorizontalAlignment="Left" Margin="3" />
             <Label Margin="25,0,0,0" Foreground="{DynamicResource HighlightColorBrush}">FlexiWall WPF</Label>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0">
-                <Label Width="80" Content="Current FPS:"/>
-                <Label Content="{Binding SensorVm.FPS.FPS}" Width="35" Margin="10,0,0,0"/>
-                <!--<Label Width="80" Content="Average FPS:"/>
-                <Label Content="{Binding AverageFps}" Width="35" Margin="10,0,0,0"/>
-                <Label Width="80" Content="Total Frames:"/>
-                <Label Content="{Binding TotalFrames}" Width="35" Margin="10,0,20,0"/>-->
-                <Button Style="{DynamicResource TransparentButton}" Command="{Binding AppCmd}" CommandParameter="Help" Content="?"/>
+                <Label Width="80" Content="Current FPS:" />
+                <Label Content="{Binding SensorVm.FPS.FPS}" Width="35" Margin="10,0,0,0" />
+                <!--<Label Width="80" Content="Average FPS:" />
+                <Label Content="{Binding AverageFps}" Width="35" Margin="10,0,0,0" />
+                <Label Width="80" Content="Total Frames:" />
+                <Label Content="{Binding TotalFrames}" Width="35" Margin="10,0,20,0" />-->
+                <Button Style="{DynamicResource TransparentButton}" Command="{Binding AppCmd}" CommandParameter="Help" Content="?" />
                 <Button Style="{DynamicResource TransparentButton}" Command="{Binding AppCmd}" CommandParameter="Minimize">
-                    <Border Width="11" Height="11" BorderBrush="{DynamicResource HighlightColorBrush}" BorderThickness="0,0,0,3"/>
+                    <Border Width="11" Height="11" BorderBrush="{DynamicResource HighlightColorBrush}" BorderThickness="0,0,0,3" />
                 </Button>
                 <Button Style="{DynamicResource TransparentButton}" Command="{Binding AppCmd}" CommandParameter="FullScreen">
-                    <Border Width="11" Height="11" BorderBrush="{DynamicResource HighlightColorBrush}" BorderThickness="1,3,1,1"/>
+                    <Border Width="11" Height="11" BorderBrush="{DynamicResource HighlightColorBrush}" BorderThickness="1,3,1,1" />
                 </Button>
                 <Button Style="{DynamicResource TransparentButton}" Command="{Binding AppCmd}" CommandParameter="PropertyPanelVisibility">
-                    <Border Width="11" Height="11" BorderBrush="{DynamicResource HighlightColorBrush}" BorderThickness="1,1,6,1"/>
+                    <Border Width="11" Height="11" BorderBrush="{DynamicResource HighlightColorBrush}" BorderThickness="1,1,6,1" />
                 </Button>
-                <Button Style="{DynamicResource TransparentButton}" Command="{Binding AppCmd}" CommandParameter="Exit" Content="X"/>
+                <Button Style="{DynamicResource TransparentButton}" Command="{Binding AppCmd}" CommandParameter="Exit" Content="X" />
             </StackPanel>
         </Grid>
     </Grid>
-
 </Window>

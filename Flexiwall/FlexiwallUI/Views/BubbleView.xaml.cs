@@ -95,44 +95,44 @@ namespace FlexiWallUI.Views
         /// </summary>
         private void UpdateStoryboard()
         {
-            if (_vm == null
-                || _vm.IsLocked)
-            {
-                return;
-            }
-            // can NEVER happen - because interaction depth must be lower than Settings.Default.DepthThreshold, but this will not trigger this update function
-            //if (_vm.TransitionPosition < 0)
+            //if (_vm == null
+            //    || _vm.IsLocked)
             //{
-            //    StopAllStoryboards();
             //    return;
             //}
+            //// can NEVER happen - because interaction depth must be lower than Settings.Default.DepthThreshold, but this will not trigger this update function
+            ////if (_vm.TransitionPosition < 0)
+            ////{
+            ////    StopAllStoryboards();
+            ////    return;
+            ////}
 
-            /// keep pos between 0 and 1
-            double pos = _vm.TransitionPosition > 1 ? 1 : _vm.TransitionPosition;
-            /// if interaction depth is just above the threshold set the animation position to 0
-            pos = pos < (Properties.Settings.Default.DepthThreshold / 2) + 0.01 ? 0 : pos;
-            Console.WriteLine(pos);
+            ///// keep pos between 0 and 1
+            //double pos = _vm.TransitionPosition > 1 ? 1 : _vm.TransitionPosition;
+            ///// if interaction depth is just above the threshold set the animation position to 0
+            //pos = pos < (Properties.Settings.Default.DepthThreshold / 2) + 0.01 ? 0 : pos;
+            //Console.WriteLine(pos);
 
-            /// freeze animation at last frame if interaction depth is deep enough
-            if (pos >= 1)
-            {
-                _vm.IsLocked = true;
-            }
+            ///// freeze animation at last frame if interaction depth is deep enough
+            //if (pos == 1)
+            //{
+            //    _vm.IsLocked = true;
+            //}
 
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                StopOtherStoryBoards(_vm.CurrentType);
+            //Application.Current.Dispatcher.Invoke(() =>
+            //{
+            //    StopOtherStoryBoards(_vm.CurrentType);
 
-                var currentSb = _storyboard[_vm.CurrentType];
-                //if (currentSb == null) // WHEN can current Sb be NULL?? -> NEVER (else exeption in line above)
-                //    return;
+            //    var currentSb = _storyboard[_vm.CurrentType];
+            //    //if (currentSb == null) // WHEN can current Sb be NULL?? -> NEVER (else exeption in line above)
+            //    //    return;
 
-                var ts = TimeSpan.FromMilliseconds(currentSb.Duration.TimeSpan.TotalMilliseconds * pos);
+            //    var ts = TimeSpan.FromMilliseconds(currentSb.Duration.TimeSpan.TotalMilliseconds * pos);
 
-                currentSb.Begin();
-                currentSb.Seek(ts, TimeSeekOrigin.BeginTime);
-                currentSb.Pause();
-            });
+            //    currentSb.Begin();
+            //    currentSb.Seek(ts, TimeSeekOrigin.BeginTime);
+            //    currentSb.Pause();
+            //});
         }
     }
 }
