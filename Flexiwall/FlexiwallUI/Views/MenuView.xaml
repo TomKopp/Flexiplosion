@@ -22,9 +22,9 @@
         </Storyboard>
     </UserControl.Resources>
     <Grid>
-        <controls:AnimatedGTVScreen x:Name="GTVView" />
-        <!--<local:Veronese x:Name="MyVeroneseView" />-->
-        <Image x:Name="rectangle" Source="pack://application:,,,/Resources/img/Layer_original.jpg" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased" RenderOptions.ClearTypeHint="Enabled" d:IsHidden="True">
+        <!--<controls:AnimatedGTVScreen x:Name="GTVView" />-->
+        <local:Veronese x:Name="MyVeroneseView" />
+        <Image x:Name="rectangle" Source="/FlexiWallUI;component/Resources/img/Layer_original.png" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased" RenderOptions.ClearTypeHint="Enabled" d:IsHidden="True">
             <!--<Rectangle.Fill>
                 <ImageBrush ImageSource="pack://application:,,,/Resources/img/Plan-01.png" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased" RenderOptions.ClearTypeHint="Enabled" />
             </Rectangle.Fill>-->

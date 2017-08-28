@@ -1,9 +1,12 @@
 ﻿using FlexiWallUI.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Media3D;
+using System.Windows.Shapes;
 
 namespace FlexiWallUI.Views
 {
@@ -52,8 +55,11 @@ namespace FlexiWallUI.Views
         /// <returns>Storyboard <see cref="Storyboard"/></returns>
         internal Storyboard DetermineStoryboard(Point3D point3D)
         {
-            // @TODO rectangle intersects with interaction?
-            //Hand_Antonio.RenderedGeometry.Bounds.Contains(new System.Windows.Point(point3D.X, point3D.Y));
+            if (ShapeContainesPoint(Hand_Zuanna, point3D))
+            {
+                return Storyboards["Storyboard_Zuanna"];
+            }
+
             return Storyboards["Storyboard_Antonio"];
         }
 
@@ -69,7 +75,7 @@ namespace FlexiWallUI.Views
             var ts = TimeSpan.FromMilliseconds(sb.Duration.TimeSpan.TotalMilliseconds * e.Point3D.Z);
 
             sb.Begin();
-            sb.Seek(ts, TimeSeekOrigin.BeginTime);
+            sb.Seek(ts);
             sb.Pause();
         }
 
@@ -81,6 +87,21 @@ namespace FlexiWallUI.Views
         private void OnDataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
         {
             // empty
+        }
+
+        /// <summary>
+        /// Shapes the containes point.
+        /// </summary>
+        /// <param name="shape">The shape.</param>
+        /// <param name="point3D">The point3 d.</param>
+        /// <returns></returns>
+        private bool ShapeContainesPoint(Shape shape, Point3D point3D)
+        {
+            var position2D = new Point(
+                point3D.X * ActualWidth - (ActualWidth - grid.ActualWidth) / 2 - shape.Margin.Left
+                , point3D.Y * ActualHeight - (ActualHeight - grid.ActualHeight) / 2 - shape.Margin.Top
+                );
+            return shape.RenderedGeometry.Bounds.Contains(position2D);
         }
 
         /// <summary>
@@ -101,6 +122,7 @@ namespace FlexiWallUI.Views
         {
             foreach (Storyboard sb in Storyboards.Values)
             {
+                sb.Seek(TimeSpan.Zero);
                 sb.Stop();
             }
         }

@@ -20,7 +20,7 @@
         x:Name="FlexiWallMainWindow"
 		d:DataContext="{d:DesignData viewModels:MainViewModel}"
         MouseMove="FlexiWallMainWindow_MouseMove"
-        MouseWheel="FlexiWallMainWindow_MouseWheel">
+        MouseWheel="FlexiWallMainWindow_MouseWheel" Background="#FF0D0D0D">
 
     <Window.InputBindings>
         <KeyBinding Command="{Binding AppCmd}" CommandParameter="Help" Gesture="F1" />
@@ -55,7 +55,7 @@
 
         <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" x:Name="ContentGrid" Visibility="{Binding MapViewVisible}">
 
-            <Image Source="pack://application:,,,/Resources/img/Layer_original.jpg" Width="1920" Height="1080" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased" RenderOptions.ClearTypeHint="Enabled" />
+            <Image Source="/FlexiWallUI;component/Resources/img/Layer_original.png" Width="1920" Height="1080" RenderOptions.BitmapScalingMode="Fant" RenderOptions.EdgeMode="Aliased" RenderOptions.ClearTypeHint="Enabled" />
 
             <!-- Lense as ellipse -->
             <Grid Opacity="{Binding EllipseOpacity}">

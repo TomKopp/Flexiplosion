@@ -18,7 +18,7 @@ namespace FlexiWallUI.ViewModels
         /// <value>
         /// The FlexiWall application state manager.
         /// </value>
-        public FlexiWallAppStateManager FlexiWallAppStateManager { get => _flexiWallAppStateManager; set => _flexiWallAppStateManager = value; }
+        public FlexiWallAppStateManager FlexiWallAppStateManager { get; set; }
 
         /// <summary>
         /// Gets or sets the sensor view model.
@@ -46,18 +46,16 @@ namespace FlexiWallUI.ViewModels
         /// </summary>
         public void UpdateAnimation()
         {
-            AnimationUpdate?.Invoke(this, new UpdateAnimationEventArgs() { Point3D = AnimationArgs });
+            if (!_isAnimationLocked)
+            {
+                AnimationUpdate?.Invoke(this, new UpdateAnimationEventArgs() { Point3D = AnimationArgs });
+            }
         }
-
-        /// <summary>
-        /// The FlexiWall application state manager
-        /// </summary>
-        private FlexiWallAppStateManager _flexiWallAppStateManager;
 
         /// <summary>
         /// The is locked
         /// </summary>
-        private bool _isLocked = false;
+        private bool _isAnimationLocked = false;
 
         /// <summary>
         /// The sensor view model
@@ -81,6 +79,7 @@ namespace FlexiWallUI.ViewModels
                 x = 1;
             if (x <= 0)
                 x = 0;
+
             return x;
         }
 
@@ -98,20 +97,24 @@ namespace FlexiWallUI.ViewModels
 
             if (e.TypeOfInteraction == FlexiWall.InteractionType.PULLED)
             {
-                _isLocked = false;
+                _isAnimationLocked = false;
+                return;
             }
-            else
+
+            AnimationArgs.X = e.DisplayCoordinates.X;
+            AnimationArgs.Y = e.DisplayCoordinates.Y;
+            AnimationArgs.Z = CalculateAnimationPercent(e);
+
+            if (AnimationArgs.Z <= 0)
             {
-                AnimationArgs.X = e.DisplayCoordinates.X;
-                AnimationArgs.Y = e.DisplayCoordinates.Y;
-                AnimationArgs.Z = CalculateAnimationPercent(e);
+                _isAnimationLocked = false;
+            }
 
-                if (AnimationArgs.Z >= 1)
-                {
-                    //_isLocked = true;
-                }
+            UpdateAnimation();
 
-                UpdateAnimation();
+            if (AnimationArgs.Z >= 1)
+            {
+                _isAnimationLocked = true;
             }
         }
     }

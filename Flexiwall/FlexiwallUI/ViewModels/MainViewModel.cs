@@ -51,7 +51,6 @@ namespace FlexiWallUI.ViewModels
         private bool _useEmulator = true;
 
         //private BubbleViewModel _bubbleVm;
-        private VeroneseViewModel _veroneseViewModel;
 
         private float _zoom;
         private Point _zoomCenter;
@@ -379,7 +378,7 @@ namespace FlexiWallUI.ViewModels
         /// <value>
         /// The veronese view model.
         /// </value>
-        public VeroneseViewModel VeroneseViewModel { get => _veroneseViewModel; set => _veroneseViewModel = value; }
+        public VeroneseViewModel VeroneseViewModel { get; set; }
 
         public float Zoom
         {
@@ -399,8 +398,8 @@ namespace FlexiWallUI.ViewModels
             set { SetProperty(ref _zoomFactor, value); }
         }
 
-        private readonly string IR = "pack://application:,,,/Resources/img/Layer_ir.jpg";
-        private readonly string XRAY = "pack://application:,,,/Resources/img/Layer_xray.jpg";
+        private readonly string IR = "/FlexiWallUI;component/Resources/img/Layer_ir.png";
+        private readonly string XRAY = "/FlexiWallUI;component/Resources/img/Layer_xray.png";
 
         #endregion properties
 
@@ -490,7 +489,7 @@ namespace FlexiWallUI.ViewModels
             if (LenseSize > 0 && Zoom > 0)
                 LenseRect = new Rect(new Point(ZoomCenterPoint.X, ZoomCenterPoint.Y), new Size(LenseSize / Zoom, LenseSize / Zoom));
 
-            if (InteractionDepth < 0.3f)
+            if (InteractionDepth < 0.5f)
                 ImgSource = XRAY;
             else
                 ImgSource = IR;

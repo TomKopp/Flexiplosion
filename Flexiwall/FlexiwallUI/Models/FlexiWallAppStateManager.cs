@@ -263,12 +263,6 @@ namespace FlexiWallUI.Models
 
                 _vm.MenuVm.TransitionPosition = pos;
             }
-
-            // MEINS
-            //if (AppState == FlexiWallAppState.ExploreCompany)
-            //{
-            //    _vm.BubbleVm.UpdateAnimation();
-            //}
         }
 
         private void OnSwitchMapTimerTick(object sender, EventArgs e)

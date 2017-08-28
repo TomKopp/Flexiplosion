@@ -282,9 +282,9 @@
     <Content Include="Resources\img\Deep.wmv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\img\Layer_ir.jpg" />
-    <Resource Include="Resources\img\Layer_original.jpg" />
-    <Resource Include="Resources\img\Layer_xray.jpg" />
+    <Resource Include="Resources\img\Layer_ir.png" />
+    <Resource Include="Resources\img\Layer_original.png" />
+    <Resource Include="Resources\img\Layer_xray.png" />
     <Content Include="Resources\img\maps.wmv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
