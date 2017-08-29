@@ -15,10 +15,6 @@ Die volgende Soft- und Hardware sollte vorhanden sein um die Anwendung zu verwen
 
 ## Building
 
-Komponentendiagram/ vereinfachtes Klassendiagram siehe FlexiWallUICodeMap
-Quellcodedokumentation siehe Help
-Projektstruktur??? Wtf? Eventuel C# WPF MVVM-Struktur
-
 Zu nächst sollte die Anwendung von Git geklont werden:
 
 `git clone https://gitlab.mg.inf.tu-dresden.de/komplexpraktika/vmi5_2017_veronese/flexiplosion.git`
