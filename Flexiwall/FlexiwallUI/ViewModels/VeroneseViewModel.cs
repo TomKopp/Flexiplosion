@@ -95,18 +95,16 @@ namespace FlexiWallUI.ViewModels
                 return;
             }
 
-            if (e.TypeOfInteraction == FlexiWall.InteractionType.PULLED
-                && e.DisplayCoordinates.Z >= Settings.Default.DepthThreshold)
-            {
-                _isAnimationLocked = false;
-                return;
-            }
-
             AnimationArgs.X = e.DisplayCoordinates.X;
             AnimationArgs.Y = e.DisplayCoordinates.Y;
             AnimationArgs.Z = CalculateAnimationPercent(e);
 
             UpdateAnimation();
+
+            if (e.TypeOfInteraction == FlexiWall.InteractionType.PULLED)
+            {
+                _isAnimationLocked = false;
+            }
 
             if (AnimationArgs.Z >= 1)
             {
