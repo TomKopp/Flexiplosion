@@ -109,7 +109,8 @@ namespace FlexiWallUI.Models
             var pulledForSpecificSamples = CheckHistoryValidity(FlexiWall.InteractionType.PULLED, 2.5 * Settings.Default.DepthThreshold);
             var pushedForSpecificSamples = CheckHistoryValidity(FlexiWall.InteractionType.PUSHED, 2.5 * Settings.Default.DepthThreshold);
 
-            if (IsValid(FlexiWall.InteractionType.PULLED, args))
+            if (IsValid(FlexiWall.InteractionType.PULLED, args)
+                && args.DisplayCoordinates.Z >= .5f)
             {
                 if (CheckHistoryValidity(FlexiWall.InteractionType.PULLED))
                     GoBack();

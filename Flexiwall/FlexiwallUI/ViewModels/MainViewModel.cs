@@ -489,7 +489,7 @@ namespace FlexiWallUI.ViewModels
             if (LenseSize > 0 && Zoom > 0)
                 LenseRect = new Rect(new Point(ZoomCenterPoint.X, ZoomCenterPoint.Y), new Size(LenseSize / Zoom, LenseSize / Zoom));
 
-            if (InteractionDepth < 0.5f)
+            if (InteractionDepth < 0.4f)
                 ImgSource = XRAY;
             else
                 ImgSource = IR;

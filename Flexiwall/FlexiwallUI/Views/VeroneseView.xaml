@@ -534,7 +534,7 @@
                 </ImageBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Rectangle x:Name="Hand_Zuanna" HorizontalAlignment="Left" Height="248.25" Margin="876.994,289.5,0,0" VerticalAlignment="Top" Width="146.25">
+        <Rectangle x:Name="Hand_Zuanna" HorizontalAlignment="Left" Height="416" Margin="761,192,0,0" VerticalAlignment="Top" Width="365">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/FlexiWallUI;component/Assets/Hand.png" Stretch="None">
                     <ImageBrush.RelativeTransform>

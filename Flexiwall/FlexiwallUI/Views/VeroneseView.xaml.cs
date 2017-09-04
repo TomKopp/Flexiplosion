@@ -70,13 +70,16 @@ namespace FlexiWallUI.Views
         /// <param name="e">The <see cref="UpdateAnimationEventArgs" /> instance containing the event data.</param>
         internal void OnAnimationUpdate(object sender, UpdateAnimationEventArgs e)
         {
-            StopAllStoryboards();
-            var sb = DetermineStoryboard(e.Point3D);
-            var ts = TimeSpan.FromMilliseconds(sb.Duration.TimeSpan.TotalMilliseconds * e.Point3D.Z);
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                StopAllStoryboards();
+                var sb = DetermineStoryboard(e.Point3D);
+                var ts = TimeSpan.FromMilliseconds(sb.Duration.TimeSpan.TotalMilliseconds * e.Point3D.Z);
 
-            sb.Begin();
-            sb.Seek(ts);
-            sb.Pause();
+                sb.Begin();
+                sb.Seek(ts);
+                sb.Pause();
+            });
         }
 
         /// <summary>
